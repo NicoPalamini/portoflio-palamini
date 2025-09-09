@@ -1,0 +1,57 @@
+body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .bg-animated {
+    background: radial-gradient(1200px 800px at 10% 10%, #141424, transparent 70%),
+                radial-gradient(1000px 600px at 90% 20%, #1f1430, transparent 75%),
+                linear-gradient(160deg, #0b0b0f, #0f0f19 60%, #0b0b0f);
+    color: #e9e7ff;
+  }
+  
+  /* Logo */
+  .logo {
+    max-width: 260px;  /* grandezza massima */
+    height: auto;      /* mantiene proporzioni */
+  }
+  
+  /* Menu grid */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    max-width: 720px;
+  }
+  .menu-card {
+    display:flex; align-items:center; justify-content:center;
+    min-height:110px; text-decoration:none; color:#e9e7ff;
+    background: rgba(255,255,255,.05);
+    border-radius: 16px;
+    transition: transform .2s ease;
+  }
+  .menu-card:hover { transform: translateY(-3px); }
+  
+  /* Social */
+  .social-dot {
+    display:inline-flex; width:40px; height:40px;
+    border-radius:50%; align-items:center; justify-content:center;
+    background:#c86dff; color:#111; font-weight:bold;
+    text-decoration:none;
+  }
+  
+  /* Pulsante Home */
+  .home-btn {
+    position: fixed; top:16px; right:16px; z-index: 40;
+    width:44px; height:44px; display:grid; place-items:center;
+    background:rgba(255,255,255,.1); border-radius:12px;
+  }
+  
+  /* Sticker */
+  .sticker { position: fixed; z-index: 10; user-select:none; }
+  .sticker--1 { left: 6vw;  bottom: 18vh; }
+  .sticker--2 { right: 6vw; bottom: 22vh; }
+  .sticker--3 { right: 12vw; bottom: 8vh; }
+  .sticker--4 { left: 12vw; bottom: 55vh; }
