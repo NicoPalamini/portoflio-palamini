@@ -5,13 +5,6 @@ body {
     padding: 0;
   }
   
-  .bg-animated {
-    background: radial-gradient(1200px 800px at 10% 10%, #141424, transparent 70%),
-                radial-gradient(1000px 600px at 90% 20%, #1f1430, transparent 75%),
-                linear-gradient(160deg, #0b0b0f, #0f0f19 60%, #0b0b0f);
-    color: #e9e7ff;
-  }
-  
   /* Logo */
   .logo {
     max-width: 260px;  /* grandezza massima */
@@ -28,7 +21,7 @@ body {
   .menu-card {
     display:flex; align-items:center; justify-content:center;
     min-height:110px; text-decoration:none; color:#e9e7ff;
-    background: rgba(255,255,255,.05);
+    background: rgba(216, 205, 205, 0.05);
     border-radius: 16px;
     transition: transform .2s ease;
   }
@@ -49,9 +42,89 @@ body {
     background:rgba(255,255,255,.1); border-radius:12px;
   }
   
-  /* Sticker */
-  .sticker { position: fixed; z-index: 10; user-select:none; }
-  .sticker--1 { left: 6vw;  bottom: 18vh; }
-  .sticker--2 { right: 6vw; bottom: 22vh; }
-  .sticker--3 { right: 12vw; bottom: 8vh; }
-  .sticker--4 { left: 12vw; bottom: 55vh; }
+ /* Sticker trascinabili – versione fluida con transform */
+.sticker{
+    position: fixed;
+    z-index: 5;
+    user-select: none;
+    cursor: grab;
+    will-change: transform;
+    /* offset applicato via JS */
+    --tx: 0px; --ty: 0px;
+    transform: translate3d(var(--tx), var(--ty), 0);
+    transition: opacity .15s ease;
+  }
+  .sticker:active,
+  .sticker.dragging { cursor: grabbing; opacity: .6; }
+  
+  .sticker img{ display:block; filter: drop-shadow(0 8px 15px rgba(0,0,0,.35)); }
+
+  /* Sticker responsive: ridimensionano con lo schermo */
+.sticker img {
+    width: clamp(60px, 8vw, 160px);
+    height: auto;
+  }
+
+ /* ===== Sfondo: sfumature morbide + vignettatura + noise ===== */
+:root{
+    --mx: 50%;
+    --my: 40%;
+    /* Palette più soft */
+    --deep: #0a0b13;
+    --mid:  #121327;
+    --tintA: 210 100% 55%; /* ciano */
+    --tintB: 270 85% 60%;  /* viola */
+  }
+  
+  /* base scura con leggere sfumature */
+  .bg-interactive{
+    position: relative;
+    min-height: 100svh;
+    color:#e9e7ff;
+    background:
+      /* alone principale che segue il mouse (molto ampio e tenue) */
+      radial-gradient(1000px 700px at var(--mx) var(--my), color-mix(in oklab, hsl(var(--tintB)) 18%, transparent), transparent 70%),
+  
+      /* velatura fredda molto grande (quasi impercettibile) */
+      radial-gradient(1400px 900px at calc(var(--mx)*0.35) calc(var(--my)*1.2),
+        color-mix(in oklab, hsl(var(--tintA)) 12%, transparent), transparent 75%),
+  
+      /* vignettatura dolce ai bordi */
+      radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
+  
+      /* base */
+      linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
+    background-blend-mode: screen, screen, multiply, normal;
+    transition: background-position .1s ease;
+  }
+  
+  /* Noise (più presente) */
+  .bg-interactive::after{
+    content:"";
+    position:absolute; inset:0; pointer-events:none;
+    /* noise SVG più fitto + leggera grana */
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+  
+  /* versione statica per reduced-motion */
+  @media (prefers-reduced-motion: reduce){
+    .bg-interactive{
+      background:
+        radial-gradient(1000px 700px at 45% 35%, color-mix(in oklab, hsl(var(--tintB)) 14%, transparent), transparent 70%),
+        radial-gradient(1400px 900px at 25% 75%,  color-mix(in oklab, hsl(var(--tintA)) 10%, transparent), transparent 75%),
+        radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
+        linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
+    }
+  }
+
+  /* Cornice sottile bianca */
+.bg-interactive::before {
+    content: "";
+    position: absolute;
+    inset: 20px; /* distanza dal bordo, puoi ridurre/aumentare */
+    border: 1px solid rgba(255,255,255,0.35); /* sottile, bianca semi-trasparente */
+    border-radius: 24px; /* angoli arrotondati */
+    pointer-events: none; /* non blocca i click */
+    z-index: 1;
+  }
