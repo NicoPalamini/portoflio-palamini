@@ -121,3 +121,11 @@ console.log("Portfolio caricato correttamente!");
   
     console.log('Sticker drag + save abilitato');
   })();
+
+// ===== Anteprima immagini menu =====
+document.querySelectorAll(".menu-card").forEach(card => {
+    const img = card.dataset.img;
+    if(img){
+      card.style.setProperty("--preview-img", `url(${img})`);
+    }
+  });
