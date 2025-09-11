@@ -129,3 +129,4 @@ document.querySelectorAll(".menu-card").forEach(card => {
       card.style.setProperty("--preview-img", `url(${img})`);
     }
   });
+

@@ -19,13 +19,6 @@ body {
     gap: 14px;
     max-width: 720px;
   }
-  .menu-card {
-    display:flex; align-items:center; justify-content:center;
-    min-height:110px; text-decoration:none; color:#e9e7ff;
-    background: rgba(216, 205, 205, 0.05);
-    border-radius: 16px;
-    transition: transform .2s ease;
-  }
 
   .menu-card{
     position: relative;
@@ -33,10 +26,20 @@ body {
     display:flex; align-items:center; justify-content:center;
     min-height: 140px;
     text-decoration:none; color:#e9e7ff;
-    background: rgba(255,255,255,.05);
+    background: rgba(255, 255, 255, 0.114);
     border-radius: 16px;
-    transition: transform .25s ease, background .25s ease;
+    transition: transform .25s ease, 
   }
+
+  /* sotto 768px: 1 colonna */
+@media (max-width: 100px){
+  .menu-grid{ grid-template-columns: 1fr; }
+}
+
+/* social più compatti su schermi piccoli */
+@media (max-width: 400px){
+  .socials{ margin-top: .5rem; }
+}
   
   .menu-card span{
     position: relative;
@@ -53,7 +56,7 @@ body {
     height: 100%;
     object-fit: cover;      /* si adatta al box */
     opacity: 0;             /* nascosta di default */
-    transform: scale(1.02); /* leggero zoom */
+    transform: scale(1.06); /* leggero zoom */
     transition: opacity .35s ease, transform .35s ease;
     z-index: 1;
     pointer-events: none;   /* non blocca i click */
@@ -89,12 +92,34 @@ body {
     opacity: 1;            /* attiva overlay scuro */
   }
   
-  /* Social */
-  .social-dot {
-    display:inline-flex; width:40px; height:40px;
-    border-radius:50%; align-items:center; justify-content:center;
-    background:#c86dff; color:#111; font-weight:bold;
-    text-decoration:none;
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .socials a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    transition: transform 0.2s ease, background 0.3s ease;
+  }
+  
+  .socials a:hover {
+    transform: scale(1.1);
+    background: #ddd;
+  }
+  
+  .socials img {
+    width: 24px;   /* 👈 grandezza icona dentro al cerchio */
+    height: 24px;
+    object-fit: contain;
   }
   
   /* Pulsante Home */
@@ -106,7 +131,7 @@ body {
   
  /* Sticker trascinabili – versione fluida con transform */
 .sticker{
-    position: fixed;
+    position: absolute;
     z-index: 5;
     user-select: none;
     cursor: grab;
@@ -132,8 +157,8 @@ body {
     --mx: 50%;
     --my: 40%;
     /* Palette più soft */
-    --deep: #252b57;
-    --mid:  #4e4f6f;
+    --deep: #538168;
+    --mid:  #bebec6;
     --tintA: 210 100% 55%; /* ciano */
     --tintB: 270 85% 60%;  /* viola */
   }
@@ -142,10 +167,10 @@ body {
   .bg-interactive{
     position: relative;
     min-height: 100svh;
-    color:#e9e7ff;
+    color:#9bc7dd;
     background:
       /* alone principale che segue il mouse (molto ampio e tenue) */
-      radial-gradient(1000px 700px at var(--mx) var(--my), color-mix(in oklab, hsl(var(--tintB)) 18%, transparent), transparent 70%),
+      radial-gradient(1000px 700px at var(--mx) var(--my), color-mix(in oklab, hsl(var(--tintB)) 70%, transparent), transparent 70%),
   
       /* velatura fredda molto grande (quasi impercettibile) */
       radial-gradient(1400px 900px at calc(var(--mx)*0.35) calc(var(--my)*1.2),
@@ -185,11 +210,25 @@ body {
     content: "";
     position: absolute;
     inset: 20px; /* distanza dal bordo, puoi ridurre/aumentare */
-    border: 2px solid rgba(255,255,255,0.35); /* sottile, bianca semi-trasparente */
+    border: 3px solid rgba(255, 255, 255, 0.738); /* sottile, bianca semi-trasparente */
     border-radius: 24px; /* angoli arrotondati */
     pointer-events: none; /* non blocca i click */
     z-index: 1;
   }
+/* === TEXTURE: sopra al background, sotto ai contenuti === */
+.bg-tex{
+  position: fixed;
+  inset: 0;
+  z-index: 0;                 /* tra background e .site */
+  pointer-events: none;
+  background-image: url("assets/img/texture.png");  /* verifica il percorso */
+  background-size: cover;     /* prova anche: 600px 600px + repeat */
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: .18;               /* aumenta per test, poi scendi a .10–.12 */
+  transform: translate(var(--tex-x,0px), var(--tex-y,0px));
+  transition: transform 1s ease;
+}
 
   /* Social icons */
   footer .social {
@@ -197,3 +236,39 @@ body {
     gap: 1rem; /* spazio costante fra i cerchi */
     margin-top: 2rem;
   }
+  
+  .bouncing-text {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;       /* dimensione testo */
+    font-weight: 600;
+    white-space: nowrap;     /* il testo non va a capo */
+    animation: bounceX 16s ease-in-out infinite alternate;
+  }
+  
+  /* Animazione avanti e indietro */
+  @keyframes bounceX {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(calc(100vw - 100%)); }
+  }
+  
+  .bouncing-text {
+    font-family: 'Share Tech Mono', monospace;
+    width: 35vw;
+    margin-top: 2%;
+    margin-left: 5%;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .sticker--large {
+  width: 220px;
+  height: 220px;
+}
