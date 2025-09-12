@@ -130,3 +130,123 @@ document.querySelectorAll(".menu-card").forEach(card => {
     }
   });
 
+// ===== Background interattivo (SOLO About) =====
+(() => {
+  // esci se NON sei nella pagina About
+  if (!document.body.classList.contains('page-about')) return;
+
+  const host = document.querySelector('.bg-interactive'); // l'elemento che ha il background
+  if (!host) return;
+
+  let t1x = 0.35, t1y = 0.30;   // target [0..1]
+  let t2x = 0.75, t2y = 0.35;
+  let p1x = t1x, p1y = t1y;     // current (easing)
+  let p2x = t2x, p2y = t2y;
+
+  const ease = 0.08;            // 0.05 più morbido • 0.15 più reattivo
+
+  const apply = () => {
+    p1x += (t1x - p1x) * ease;
+    p1y += (t1y - p1y) * ease;
+    p2x += (t2x - p2x) * ease;
+    p2y += (t2y - p2y) * ease;
+
+    // 👇 scrivi le variabili SOLO sull'elemento della pagina About, non su :root
+    host.style.setProperty('--p1x', (p1x * 100) + '%');
+    host.style.setProperty('--p1y', (p1y * 100) + '%');
+    host.style.setProperty('--p2x', (p2x * 100) + '%');
+    host.style.setProperty('--p2y', (p2y * 100) + '%');
+
+    requestAnimationFrame(apply);
+  };
+
+  const onMove = (e) => {
+    const rect = host.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    t1x = x * 0.6 + 0.2;
+    t1y = y * 0.6 + 0.2;
+    t2x = 1 - t1x * 0.9;
+    t2y = 1 - t1y * 0.9;
+  };
+
+  host.addEventListener('mousemove', onMove);
+  host.addEventListener('touchmove', (ev) => {
+    const t = ev.touches?.[0]; if (!t) return;
+    onMove({ clientX: t.clientX, clientY: t.clientY });
+  }, { passive: true });
+
+  requestAnimationFrame(apply);
+})();
+
+// ===== Sticker About: drag + save (chiavi stabili) =====
+(() => {
+  if (!document.body.classList.contains('page-about')) return;
+
+  const els = document.querySelectorAll('[data-drag-about]');
+  if (!els.length) return;
+
+  const load = k => { try { return JSON.parse(localStorage.getItem('about-sticker:'+k)); } catch { return null; } };
+  const save = (k, xPct, yPct) => localStorage.setItem('about-sticker:'+k, JSON.stringify({xPct,yPct}));
+  const apply = (el, x, y) => { el.style.setProperty('--tx', x+'px'); el.style.setProperty('--ty', y+'px'); };
+
+  els.forEach((el, i) => {
+    // se manca data-key, ne assegno uno deterministico e PERSISTENTE
+    if (!el.dataset.key) {
+      el.dataset.key = `about-auto-${i}`;
+    }
+    const key = el.dataset.key;
+
+    // posizionamento iniziale: salvato -> altrimenti dai data-start-*
+    const saved = load(key);
+    let tx, ty;
+    if (saved) {
+      tx = (saved.xPct/100) * window.innerWidth;
+      ty = (saved.yPct/100) * window.innerHeight;
+    } else {
+      const sx = parseFloat(el.dataset.startX || '10');
+      const sy = parseFloat(el.dataset.startY || '10');
+      tx = (sx/100) * window.innerWidth;
+      ty = (sy/100) * window.innerHeight;
+    }
+    apply(el, tx, ty);
+
+    let dragging = false, startX=0, startY=0, startTx=tx, startTy=ty;
+
+    const down = e => {
+      dragging = true;
+      el.classList.add('dragging');
+      startX = e.clientX; startY = e.clientY;
+      startTx = tx;       startTy = ty;
+      el.setPointerCapture?.(e.pointerId);
+    };
+    const move = e => {
+      if (!dragging) return;
+      tx = startTx + (e.clientX - startX);
+      ty = startTy + (e.clientY - startY);
+      apply(el, tx, ty);
+    };
+    const up = e => {
+      if (!dragging) return;
+      dragging = false;
+      el.classList.remove('dragging');
+      // salvo in percentuale della viewport
+      save(key, (tx/window.innerWidth)*100, (ty/window.innerHeight)*100);
+      el.releasePointerCapture?.(e.pointerId);
+    };
+
+    el.addEventListener('pointerdown', down);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+
+    // ricalcola al resize mantenendo la posizione salvata
+    window.addEventListener('resize', () => {
+      const s = load(key); if (!s) return;
+      tx = (s.xPct/100) * window.innerWidth;
+      ty = (s.yPct/100) * window.innerHeight;
+      apply(el, tx, ty);
+    });
+  });
+
+  console.log('Sticker About – chiavi stabili + salvataggio OK');
+})();

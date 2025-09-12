@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Me — Moonlish</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=League+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-interactive page-about">
+  <div class="site container-xxl">
+
+    <!-- Header: logo sx + nav dx -->
+    <header class="d-flex justify-content-between align-items-center py-3">
+      <a href="index.html" class=logopiccolo>
+        <img src="assets/img/logo2.png" alt="Moonlish">
+      </a>
+
+      <nav class="Menu">
+        <a href="index.html">Home</a>
+        <a class="active" href="about.html" aria-current="page">About</a>
+        <a href="fotografie.html">Photo</a>
+        <a href="illustrazioni.html">Illustrazioni</a>
+        <a href="progetti.html">Progetti</a>
+        <a href="contatti.html">Contatti</a>
+      </nav>
+    </header>
+
+    <!-- Layout: sinistra (polaroid) | centro (divider) | destra (contenuti) -->
+    <div class="row g-0 about-layout">
+
+      <!-- SINISTRA -->
+      <div class="col-12 col-lg-5 d-flex flex-column align-items-center p-4">
+        <figure class="polaroid">
+          <img src="assets/img/ritratto.png" alt="Ritratto" class="polaroid__img">
+          <figcaption class="polaroid__caption">I will fix my crown.</figcaption>
+        </figure>
+      </div>
+
+      <!-- DIVISORE CENTRALE -->
+      <div class="col-lg-1 d-none d-lg-flex justify-content-center">
+        <div class="about-divider"></div>
+      </div>
+
+      <!-- DESTRA -->
+      <div class="col-12 col-lg-6 p-4">
+        <h1 class="about-title mb-3"> Ciao, sono MOONLISH! </h1>
+        <p class="about-text mb-4">
+            Sono un grafico e illustratore che vive di creatività, immaginazione e… un pizzico di follia! <br><br>Disegnare è il mio modo preferito per rilassarmi, ma anche per raccontare storie e dare forma a mondi che esistono solo nella testa (almeno fino a quando non finiscono su carta o su schermo).
+            
+            Accanto ai colori e alle linee, c’è anche la fotografia: un altro modo per fermare emozioni e trasformarle in immagini.
+            Il nome <strong>MOONLISH</strong> nasce dall’unione di Moon (la mia parte calma e sognatrice) e Foolish (quella più giocosa e sperimentale).
+            <br><br> <strong>E c’è un piccolo segreto nei miei lavori: se guardi bene, troverai sempre un 22 nascosto qua e là. Un dettaglio che li rende davvero miei.</strong>
+        </p>
+
+        <h2 class="h6 section-label">Ascolta la mia playlist</h2>
+        <div class="playlist d-flex gap-3 mb-4">
+          <a href="https://open.spotify.com/" target="_blank" rel="noopener"><img src="assets/img/playlist-1.webp" alt="Album 1"></a>
+          <a href="https://open.spotify.com/" target="_blank" rel="noopener"><img src="assets/img/playlist-2.webp" alt="Album 2"></a>
+          <a href="https://open.spotify.com/" target="_blank" rel="noopener"><img src="assets/img/playlist-3.webp" alt="Album 3"></a>
+          <a href="https://open.spotify.com/" target="_blank" rel="noopener"><img src="assets/img/playlist-4.webp" alt="Album 4"></a>
+        </div>
+
+        <h2 class="h6 section-label">I miei social</h2>
+        <div class="about-socials d-flex flex-wrap gap-3">
+          <a href="https://instagram.com" target="_blank"><img src="assets/img/icons/instagram.png" alt="Instagram"></a>
+          <a href="https://facebook.com" target="_blank"><img src="assets/img/icons/facebook.png" alt="Facebook"></a>
+          <a href="https://linkedin.com" target="_blank"><img src="assets/img/icons/linkedin.png" alt="LinkedIn"></a>
+          <a href="mailto:tuamail@example.com"><img src="assets/img/icons/mail.png" alt="Mail"></a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center mt-5">© 2025 MOONLISH — Portfolio</footer>
+  </div>
+  <!-- Stickers About -->
+<div class="sticker-about" data-drag-about data-key="about-sticker-1" data-start-x="70" data-start-y="50">
+    <img src="assets/img/stickerabout1.png" alt="sticker" width="120" height="120" draggable="false">
+  </div>
+  <div class="sticker-about" data-drag-about data-key="about-sticker-2" data-start-x="70" data-start-y="50">
+    <img src="assets/img/stickerabout2.png" alt="sticker" width="200" height="200" draggable="false">
+  </div>
+  <div class="sticker-about" data-drag-about data-key="about-sticker-3" data-start-x="70" data-start-y="50">
+    <img src="assets/img/stickerabout3.png" alt="sticker" width="150" height="150" draggable="false">
+  </div>
+  <div class="sticker-about" data-drag-about data-key="about-sticker-4" data-start-x="70" data-start-y="50">
+    <img src="assets/img/stickerabout4.png" alt="sticker" width="120" height="120" draggable="false">
+  </div>
+  <div class="sticker-about" data-drag-about data-key="about-sticker-5" data-start-x="70" data-start-y="50">
+    <img src="assets/img/stickerabout5.png" alt="sticker" width="120" height="120" draggable="false">
+  </div>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
