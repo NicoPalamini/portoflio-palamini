@@ -436,3 +436,166 @@ body {
   font-size: 2.5rem;
   font-weight: bold;
 }
+
+/* ===== Slider album ===== */
+.page-about .fav-albums { position: relative; }
+
+.page-about .album-wrap{
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-about .album-scroller{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(140px, 18vw, 200px); /* larghezza card */
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 10px 4px 16px;
+  scroll-behavior: smooth;
+}
+.page-about .album-scroller::-webkit-scrollbar{ height: 8px; }
+.page-about .album-scroller::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.25); border-radius: 8px; }
+
+.page-about .album-card{
+  position: relative;
+  scroll-snap-align: start;
+  aspect-ratio: 1 / 1;             /* quadrata */
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0d2130;
+  box-shadow: 0 8px 28px rgba(0,0,0,.35);
+  transform-style: preserve-3d;    /* per tilt 3D */
+  transition: transform .15s ease, box-shadow .2s ease;
+  will-change: transform;
+  text-decoration: none;
+}
+.page-about .album-card img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transform: translateZ(20px); /* leggera profondità */
+}
+.page-about .album-card::after{
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(60% 60% at var(--mx,50%) var(--my,50%), rgba(255,255,255,.25), transparent 60%);
+  opacity:.0; transition: opacity .15s ease;
+  mix-blend-mode: screen;
+}
+.page-about .album-card:hover{
+  box-shadow: 0 14px 38px rgba(0,0,0,.45);
+}
+.page-about .album-card:hover::after{ opacity:.55; }
+
+.page-about .album-title{
+  position:absolute; left:10px; bottom:10px;
+  padding: 2px 8px;
+  background: rgba(0,0,0,.55);
+  color:#fff; font-size:.8rem; border-radius:999px;
+}
+
+/* Bottoni prev/next */
+.page-about .album-nav{
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 0; color:#003545; background:#fff;
+  display:grid; place-items:center;
+  box-shadow: 0 2px 10px rgba(0,0,0,.25);
+  cursor:pointer;
+  transition: transform .15s ease;
+}
+.page-about .album-nav:hover{ transform: scale(1.06); background:#f4f4f4; }
+.page-about .album-nav:active{ transform: scale(0.96); }
+
+@media (max-width: 576px){
+  .page-about .album-scroller{ grid-auto-columns: clamp(120px, 45vw, 160px); }
+}
+
+/* Logo About */
+.about-logo img {
+  height: 60px;   /* 👈 altezza fissa */
+  width: auto;    /* mantiene proporzioni */
+  display: block;
+}
+
+/* Logo About */
+.about-logo img {
+  height: 60px;   /* 👈 altezza fissa */
+  width: auto;    /* mantiene proporzioni */
+  display: block;
+}
+
+/* --- TOP BAR centrata, con spazio sotto la cornice --- */
+.page-about .top-bar{
+  display:flex;
+  flex-direction:column;          /* logo sopra, menu sotto */
+  align-items:center;
+  justify-content:center;
+  gap: 14px;
+
+  /* niente margin-top che “sposta” la percezione della cornice */
+  margin-top: 0;
+
+  /* usiamo padding interno per abbassare il blocco rispetto alla cornice */
+  padding-top: clamp(16px, 3vw, 36px);
+  margin-bottom: clamp(20px, 4vw, 48px);
+}
+
+/* Logo davvero responsive (limiti più stretti) */
+.page-about .top-bar .about-logo img{
+  height: clamp(44px, 7vw, 88px);   /* min 44px, max 88px */
+  width: auto;
+  display:block;
+}
+
+/* Menu centrato + dimensioni che non “esplodono” */
+.page-about .top-bar .about-nav{
+  display:flex;
+  gap: clamp(10px, 2vw, 22px);
+  flex-wrap: wrap;
+  justify-content:center;
+}
+
+.page-about .top-bar .about-nav a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size: clamp(.90rem, 1.6vw, 1.10rem);  /* testo che scala poco */
+  line-height:1;
+  padding: .25rem .1rem;
+  transition: color .2s ease;
+}
+
+.page-about .top-bar .about-nav a:hover{
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.page-about .top-bar .about-nav a.active{
+  background:#fff;
+  color:#0a2230;
+  border-radius:999px;
+  padding:.30rem .80rem;
+}
+
+/* Mobile: un filo più compatto */
+@media (max-width: 768px){
+  .page-about .top-bar{ padding-top: 30px; gap: 10px; }
+  .page-about .top-bar .about-nav{ gap: 12px; }
+}
+
+.page-about main { margin-top: clamp(8px, 2vw, 24px); }
+
+/* Footer About */
+.page-about footer {
+  position: relative;
+  bottom: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff;          /* 👈 testo bianco */
+  margin-bottom: 20px;  /* 👈 alzato sopra la cornice */
+  opacity: 1;           /* 👈 niente trasparenza */
+}

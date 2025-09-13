@@ -250,3 +250,54 @@ document.querySelectorAll(".menu-card").forEach(card => {
 
   console.log('Sticker About – chiavi stabili + salvataggio OK');
 })();
+
+// ===== Album slider (drag + prev/next + tilt 3D) – SOLO About =====
+(() => {
+  if (!document.body.classList.contains('page-about')) return;
+
+  const scroller = document.querySelector('#album-scroller');
+  if (!scroller) return;
+
+  // 1) drag-to-scroll
+  let isDown = false, startX = 0, startScroll = 0;
+  const down = (e) => { isDown = true; startX = e.clientX || e.touches?.[0]?.clientX || 0; startScroll = scroller.scrollLeft; };
+  const move = (e) => {
+    if (!isDown) return;
+    const x = e.clientX || e.touches?.[0]?.clientX || 0;
+    scroller.scrollLeft = startScroll - (x - startX);
+  };
+  const up = () => { isDown = false; };
+
+  scroller.addEventListener('mousedown', down);
+  scroller.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', up);
+  scroller.addEventListener('touchstart', down, { passive: true });
+  scroller.addEventListener('touchmove', move,   { passive: true });
+  scroller.addEventListener('touchend',  up);
+
+  // 2) prev/next buttons
+  const prevBtn = document.querySelector('.album-nav.prev');
+  const nextBtn = document.querySelector('.album-nav.next');
+  const step = () => scroller.querySelector('.album-card')?.offsetWidth || 200;
+
+  prevBtn?.addEventListener('click', () => scroller.scrollBy({ left: -step() - 16, behavior: 'smooth' }));
+  nextBtn?.addEventListener('click', () => scroller.scrollBy({ left:  step() + 16, behavior: 'smooth' }));
+
+  // 3) tilt 3D + glow che segue il mouse
+  scroller.querySelectorAll('.album-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const mx = ((e.clientX - r.left) / r.width) * 100;   // 0..100
+      const my = ((e.clientY - r.top)  / r.height) * 100;
+      card.style.setProperty('--mx', mx + '%');
+      card.style.setProperty('--my', my + '%');
+
+      const rx = ((e.clientY - r.top) / r.height - .5) * -10; // tilt X
+      const ry = ((e.clientX - r.left)/ r.width  - .5) *  10; // tilt Y
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = 'none'; });
+  });
+
+  console.log('Album slider About attivo');
+})();
