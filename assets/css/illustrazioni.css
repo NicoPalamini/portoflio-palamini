@@ -1,0 +1,173 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0b0b0f;
+    color: #e9e7ff;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Logo */
+  .logo {
+    max-width: 260px;  /* grandezza massima */
+    height: auto;      /* mantiene proporzioni */
+  }
+  
+  /* base scura con leggere sfumature */
+  .bg-interactive{
+    position: relative;
+    min-height: 100svh;
+    color:#9bc7dd;
+    background:
+      /* alone principale che segue il mouse (molto ampio e tenue) */
+      radial-gradient(1000px 700px at var(--mx) var(--my), color-mix(in oklab, hsl(var(--tintB)) 70%, transparent), transparent 70%),
+  
+      /* velatura fredda molto grande (quasi impercettibile) */
+      radial-gradient(1400px 900px at calc(var(--mx)*0.35) calc(var(--my)*1.2),
+        color-mix(in oklab, hsl(var(--tintA)) 12%, transparent), transparent 75%),
+  
+      /* vignettatura dolce ai bordi */
+      radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
+  
+      /* base */
+      linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
+    background-blend-mode: screen, screen, multiply, normal;
+    transition: background-position .1s ease;
+  }
+  
+  /* Noise (più presente) */
+  .bg-interactive::after{
+    content:"";
+    position:absolute; inset:0; pointer-events:none;
+    /* noise SVG più fitto + leggera grana */
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+  
+  /* versione statica per reduced-motion */
+  @media (prefers-reduced-motion: reduce){
+    .bg-interactive{
+      background:
+        radial-gradient(1000px 700px at 45% 35%, color-mix(in oklab, hsl(var(--tintB)) 14%, transparent), transparent 70%),
+        radial-gradient(1400px 900px at 25% 75%,  color-mix(in oklab, hsl(var(--tintA)) 10%, transparent), transparent 75%),
+        radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
+        linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
+    }
+  }
+  
+  /* Cornice sottile bianca */
+  .bg-interactive::before {
+    content: "";
+    position: absolute;
+    inset: 20px; /* distanza dal bordo, puoi ridurre/aumentare */
+    border: 3px solid rgba(255, 255, 255, 0.738); /* sottile, bianca semi-trasparente */
+    border-radius: 24px; /* angoli arrotondati */
+    pointer-events: none; /* non blocca i click */
+    z-index: 1;
+  }
+  
+  /* Animazione avanti e indietro */
+  @keyframes bounceX {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(calc(100vw - 100%)); }
+  }
+  
+/* About */
+.page-about {
+    --deep: #6599ee;
+    --mid:  #d0cbcb;
+    --tintA: 120 100% 60%; /* azzurro */
+    --tintB: 120 100% 62%; /* blu */
+  }
+  
+  
+  .logopiccolo img {
+  height: 50px;         
+  margin-top: 40px;  
+  margin-left: 120px;
+  }
+  
+  /* Logo About */
+  .about-logo img {
+  height: 60px;   /* 👈 altezza fissa */
+  width: auto;    /* mantiene proporzioni */
+  display: block;
+  }
+  
+  /* Logo About */
+  .about-logo img {
+  height: 60px;   /* 👈 altezza fissa */
+  width: auto;    /* mantiene proporzioni */
+  display: block;
+  }
+  
+  /* --- TOP BAR centrata, con spazio sotto la cornice --- */
+  .page-about .top-bar{
+  display:flex;
+  flex-direction:column;          /* logo sopra, menu sotto */
+  align-items:center;
+  justify-content:center;
+  gap: 14px;
+  
+  /* niente margin-top che “sposta” la percezione della cornice */
+  margin-top: 0;
+  
+  /* usiamo padding interno per abbassare il blocco rispetto alla cornice */
+  padding-top: clamp(16px, 3vw, 36px);
+  margin-bottom: clamp(20px, 4vw, 48px);
+  }
+  
+  /* Logo davvero responsive (limiti più stretti) */
+  .page-about .top-bar .about-logo img{
+  height: clamp(44px, 7vw, 88px);   /* min 44px, max 88px */
+  width: auto;
+  display:block;
+  }
+  
+  /* Menu centrato + dimensioni che non “esplodono” */
+  .page-about .top-bar .about-nav{
+  display:flex;
+  gap: clamp(10px, 2vw, 22px);
+  flex-wrap: wrap;
+  justify-content:center;
+  }
+  
+  .page-about .top-bar .about-nav a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size: clamp(.90rem, 1.6vw, 1.10rem);  /* testo che scala poco */
+  line-height:1;
+  padding: .25rem .1rem;
+  transition: color .2s ease;
+  }
+  
+  .page-about .top-bar .about-nav a:hover{
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  }
+  
+  .page-about .top-bar .about-nav a.active{
+  background:#fff;
+  color:#0a2230;
+  border-radius:999px;
+  padding:.30rem .80rem;
+  }
+  
+  /* Mobile: un filo più compatto */
+  @media (max-width: 768px){
+  .page-about .top-bar{ padding-top: 30px; gap: 10px; }
+  .page-about .top-bar .about-nav{ gap: 12px; }
+  }
+  
+  .page-about main { margin-top: clamp(8px, 2vw, 24px); }
+  
+  /* Footer About */
+  .page-about footer {
+  position: relative;
+  bottom: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff;          /* 👈 testo bianco */
+  margin-bottom: 20px;  /* 👈 alzato sopra la cornice */
+  opacity: 1;           /* 👈 niente trasparenza */
+  }
