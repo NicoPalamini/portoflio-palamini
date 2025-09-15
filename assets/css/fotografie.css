@@ -247,7 +247,7 @@ opacity: 1;           /* 👈 niente trasparenza */
   background: rgba(255,255,255,.9);
   color:#0b2a34; font-size: 28px; line-height:0;
   display:grid; place-items:center;
-  cursor:pointer; transition: transform .15s ease, background .2s ease;
+  cursor:pointer; transition: transform .15s ease;
   box-shadow: 0 4px 12px rgba(0,0,0,.2);
 }
 .page-fotografie .nav:hover{ transform: scale(1.06); }
@@ -519,3 +519,110 @@ opacity: 1;           /* 👈 niente trasparenza */
   .hero-quote .sq--c{ left: 30%; top: 54%; }
 }
 
+/* --- BASE --- */
+*{ box-sizing: border-box; }
+img{ max-width:100%; display:block; } /* niente height:auto globale */
+
+/* --- RIQUADRO BIANCO --- */
+.white-wrap{
+  position: relative;
+  max-width: 1200px;        /* NON 100px */
+  margin: 40px auto;        /* centrato: nessun padding “trucco” ai lati */
+  background: #fff;
+  padding: 16px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  overflow: hidden;
+  clip-path: inset(0 round 20px);
+}
+
+/* --- SLIDESHOW --- */
+.slideshow-clip{           /* opzionale, ma aiuta col clipping */
+  margin: 24px 0;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.slideshow{
+  position: relative;
+  width: 100%;
+  max-width: 100%;         /* desktop: piena larghezza del riquadro bianco */
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;    /* il box decide l’altezza */
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+}
+
+/* tutte le slide “incollate” al box */
+.slide{
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .8s ease-in-out;
+}
+.slide.active{ opacity: 1; }
+
+/* 🔑 l’immagine ha SEMPRE la stessa grandezza del box */
+.slideshow .slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* riempie senza bande */
+  object-position: center;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px){
+  .white-wrap{ margin: 24px auto; padding: 12px; }
+  .slideshow{ 
+    max-width: 92%;        /* stringi per non toccare i lati */
+    aspect-ratio: 4 / 5;   /* più verticale su mobile */
+    margin: 12px auto;
+  }
+}
+
+/* Contenitore slideshow SENZA cornice nera */
+.slideshow{
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 20px auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;     /* <— niente nero */
+  padding: 0;                  /* <— nessun gap interno */
+  border: 0;
+}
+
+/* Reset di sicurezza: nessun padding/bordo sulle slide */
+.slideshow .slide{
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .8s ease-in-out;
+  padding: 0 !important;       /* <— evita padding ereditati */
+  border: 0 !important;
+  background: transparent !important;
+}
+.slideshow .slide.active{ opacity: 1; }
+
+/* L’IMMAGINE RIEMPIE TUTTO IL BOX (niente bande) */
+.slideshow .slide img{
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;           /* riempie */
+  object-position: center;
+  border: 0;
+  border-radius: 0;            /* il radius lo fa il contenitore */
+}
+
+/* Mobile: più stretto e più verticale */
+@media (max-width: 600px){
+  .slideshow{
+    max-width: 92%;
+    aspect-ratio: 4 / 5;
+    margin: 16px auto;
+  }
+}

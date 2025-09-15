@@ -283,3 +283,28 @@ console.log("Portfolio caricato correttamente!");
     render();
     startAutoplay();
   });
+
+  // Cambia qui la velocità (millisecondi)
+const INTERVAL_MS = 4000;
+
+(function initSlideshow(){
+  const container = document.getElementById('slideshow');
+  if(!container) return;
+
+  const slides = Array.from(container.querySelectorAll('.slide'));
+  if(slides.length === 0) return;
+
+  let index = 0;
+
+  const show = (i) => {
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+  };
+
+  const next = () => {
+    index = (index + 1) % slides.length;
+    show(index);
+  };
+
+  show(index);
+  setInterval(next, INTERVAL_MS);
+})();
