@@ -376,3 +376,146 @@ opacity: 1;           /* 👈 niente trasparenza */
 @media (max-width: 768px){
   .photo-rotor{ height: clamp(300px, 60vw, 360px); }
 }
+
+/* ====== MOTTO con foto dietro (no conflitti) ====== */
+.motto{
+  position: relative;
+  width: min(1400px, 92vw);
+  margin: clamp(20px, 6vw, 90px) auto;
+}
+
+/* Testo grande con il font della “welcome” */
+.motto__text{
+  position: relative;
+  z-index: 2;                          /* sopra alle foto */
+  margin: 0;
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  line-height: .82;                     /* interlinea ravvicinata */
+}
+.motto .line{
+  display: block;
+  font-size: clamp(2em, 10vw, 10rem); /* grande ma responsivo */
+  margin-left: 40px;
+  letter-spacing: .02em;
+  text-shadow: none;
+}
+
+/* “Disallineamento” leggero fra le righe (look più dinamico) */
+.motto .l1 { transform: translateX(20%); }
+.motto .l2 { transform: translateX(9vw);  }
+.motto .l3 { transform: translateX(1vw);  }
+
+/* Foto dietro al testo */
+.motto__frames{
+  position: absolute;
+  inset: 0;
+  z-index: 1;       /* dietro al testo */
+  pointer-events: none;
+}
+
+/* Card/foto responsive: si riducono quando stringi lo schermo */
+.motto__ph{
+  position: absolute;
+  width: clamp(200px, 436vw, 160px); /* <— qui “scala” con la viewport */
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 0;                  /* niente smussatura */
+  box-shadow: 0 12px 36px rgba(0,0,0,.32);
+  opacity: .95;
+}
+
+/* Posizioni (regolabili a gusto) */
+.motto__ph--a{
+  top: clamp(-420px, -6vw, -90px);
+  left: clamp(-10vw, 9vw, 18vw);
+  transform: rotate(-8deg);
+}
+.motto__ph--b{
+  top: clamp(-48px, 2vw, -24px);
+  left: clamp(60vw, 58vw, 62vw);
+  transform: rotate(7deg);
+}
+.motto__ph--c{
+  top: clamp(-56vh, 22vh, 6vh);      /* più alta dietro “RICORDO” */
+  left: clamp(29vw, -40vw, 6vw);
+  transform: rotate(-4deg);
+}
+
+/* Breakpoint: stringo un po’ il testo e le card si riducono di più */
+@media (max-width: 1024px){
+  .motto .line{ font-size: clamp(2rem, 12vw, 7.4rem); line-height: .86; }
+  .motto__ph{ width: clamp(110px, 20vw, 200px); }
+  .motto .l1 { transform: translateX(2vw); }
+  .motto .l2 { transform: translateX(6vw); }
+  .motto .l3 { transform: translateX(0);   }
+}
+
+/* Mobile: composizione più raccolta */
+@media (max-width: 100px){
+  .motto{ width: 24vw; }
+  .motto .line{ font-size: clamp(1rem, 14vw, 5.6rem); }
+  .motto__ph{ width: clamp(px, 26vw, 160px); }
+
+  /* Ritaro le posizioni per non coprire troppo il testo */
+  .motto__ph--a{ left: 6vw;  top: -10px;  transform: rotate(-6deg); }
+  .motto__ph--b{ left: auto; right: 4vw; top: 2vh; transform: rotate(6deg); }
+  .motto__ph--c{ left: 22vw; top: 18vh; transform: rotate(-3deg); }
+}
+
+.hero-quote{
+  position: relative;
+  width: min(1400px, 92vw);
+  margin: clamp(32px, 6vw, 80px) auto;
+  overflow: visible;
+  padding-left: 6%;   /* 👈 sposta tutto il blocco un po’ a destra */
+}
+
+/* Righe di testo */
+.hero-quote .quote .row:nth-child(1){ transform: translateX(16%); }
+.hero-quote .quote .row:nth-child(2){ transform: translateX(8%); }
+.hero-quote .quote .row:nth-child(3){ transform: translateX(20%); }
+
+/* step 1200 */
+@media (max-width: 1200px){
+  .hero-quote .quote .row{ font-size: clamp(2.2rem, 8.2vw, 8.6rem); }
+  .hero-quote .sq{ width: clamp(76px, 11vw, 170px); }
+  .hero-quote .sq--c{ top: 48%; left: 36%; }
+}
+
+/* step 992 */
+@media (max-width: 992px){
+  .hero-quote .quote .row{ font-size: clamp(2rem, 7.6vw, 7.8rem); }
+  .hero-quote .sq{ width: clamp(68px, 10vw, 150px); }
+  .hero-quote .sq--a{ left: 12%; }
+  .hero-quote .sq--b{ left: 64%; }
+  .hero-quote .sq--c{ top: 50%; left: 34%; }
+}
+
+/* step 768 */
+@media (max-width: 768px){
+  .hero-quote{ width: min(1000px, 94vw); }
+  .hero-quote .quote .row{
+    font-size: clamp(1.8rem, 7.2vw, 6.6rem);
+    word-spacing: -0.12em;
+  }
+  .hero-quote .sq{ width: clamp(60px, 14vw, 130px); }
+  .hero-quote .sq--a{ top: -6%; left: 10%; }
+  .hero-quote .sq--b{ top:  6%; left: 60%; }
+  .hero-quote .sq--c{ top: 52%; left: 32%; }
+}
+
+/* step 560 (mobile piccolo) */
+@media (max-width: 560px){
+  .hero-quote .quote .row{
+    font-size: clamp(1.6rem, 7.6vw, 5.6rem);
+    line-height: 0.92;
+    word-spacing: -0.16em;
+  }
+  .hero-quote .sq{ width: clamp(52px, 18vw, 110px); }  /* 👈 molto più piccole */
+  .hero-quote .sq--a{ left: 16%; }
+  .hero-quote .sq--b{ left: 56%; }
+  .hero-quote .sq--c{ left: 30%; top: 54%; }
+}
+
