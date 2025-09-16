@@ -171,3 +171,423 @@ body {
   margin-bottom: 20px;  /* 👈 alzato sopra la cornice */
   opacity: 1;           /* 👈 niente trasparenza */
   }
+
+  /* Contenitore a scacchiera */
+.illu-scacchiera {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 colonne */
+  gap: 20px;
+  max-width: 1400px;
+  margin: 60px auto;
+}
+
+/* Ogni box */
+.illu-box {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;   /* quadrati */
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  transition: transform .3s ease;
+}
+
+.illu-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.illu-box:hover img {
+  transform: scale(1.15);
+}
+
+.illu-box figcaption {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-size: 0.8rem;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* Effetto scacchiera alternata */
+.illu-box:nth-child(odd) {
+  transform: translateY(20px);
+}
+.illu-box:nth-child(even) {
+  transform: translateY(-20px);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .illu-scacchiera { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .illu-scacchiera { grid-template-columns: repeat(2, 1fr); }
+}
+
+  .illu-scacchiera {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* quadrati */
+  gap: 32px; /* 👈 aumenta lo spazio (prima era 20px o meno) */
+  max-width: 1200px; /* riquadro contenitore */
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+/* Sezione scacchiera illustrazioni */
+.illu-scacchiera {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* si adatta */
+  gap: 32px; /* spazio tra i quadrati */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Ogni card */
+.illu-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Contenitore immagine */
+.illu-media {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* mantiene quadrato */
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Immagine */
+.illu-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* taglia senza deformare */
+  transition: transform .3s ease;
+}
+
+/* Hover zoom */
+.illu-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Descrizione */
+.illu-card figcaption {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+/* Sezione scacchiera illustrazioni */
+.illu-scacchiera {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* adattivo */
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Card */
+.illu-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Contenitore immagine quadrato */
+.illu-media {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Immagine */
+.illu-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+
+/* Effetto zoom hover */
+.illu-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Testo */
+.illu-card figcaption {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+/* === GRIGLIA ILLUSTRAZIONI (100% responsive) === */
+.illu-scacchiera{
+  display: grid;
+  /* colonne che si adattano: tra 120px e 220px; quando non c'è spazio vanno a capo */
+  grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 22vw, 220px), 1fr));
+  gap: clamp(14px, 2.4vw, 28px);
+  width: min(1200px, 92vw);       /* dentro la cornice */
+  margin: clamp(10px, 3vw, 26px) auto;
+  align-items: start;
+}
+
+/* Card: IMPORTANTISSIMO min-width:0 per permettere di stringere nelle grid */
+.illu-card{
+  display: flex;
+  flex-direction: column;
+  min-width: 0;           /* ← senza questo molte card non si riducono */
+}
+
+/* Riquadro immagine: sempre quadrato e fluido */
+.illu-media{
+  width: 100%;            /* niente width fisse! */
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 10px 28px rgba(0,0,0,.18) inset;
+}
+
+/* Immagine che riempie senza deformarsi */
+.illu-card img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+
+/* Zoom al passaggio */
+.illu-card:hover img{ transform: scale(1.06); }
+
+/* Didascalia */
+.illu-card figcaption{
+  margin-top: .5rem;
+  font-size: clamp(.8rem, 1.6vw, .95rem);
+  color: rgba(255,255,255,.92);
+}
+
+/* (Opzionale) un po’ di “zig-zag” come nel tuo esempio */
+.illu-card:nth-child(5n+2) { transform: translateY(6%); }
+.illu-card:nth-child(5n+3) { transform: translateY(-4%); }
+.illu-card:nth-child(5n+4) { transform: translateY(8%);  }
+.illu-card:nth-child(5n+5) { transform: translateY(-6%); }
+
+/* Su schermi piccoli, zig-zag più leggero */
+@media (max-width: 640px){
+  .illu-card:nth-child(n) { transform: none; }
+}
+
+.illu-scacchiera {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+  gap: 18px;
+  padding: 40px;
+  justify-items: center;
+}
+
+.illu-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  width: 100%;
+  max-width: 220px; /* limite massimo così non diventano enormi */
+  aspect-ratio: 1/1; /* quadrati */
+  background: rgba(255,255,255,0.06);
+  transition: transform 0.3s ease;
+}
+
+.illu-card:hover {
+  transform: scale(1.06);
+  z-index: 2;
+}
+
+.illu-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.illu-card figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  color: #fff;
+  background: rgba(0,0,0,0.35);
+}
+
+.motto-weird{
+  margin: clamp(40px, 8vw, 80px) auto;
+  max-width: 1200px;      /* resta dentro la tua cornice */
+  padding: 0 24px;        /* un filo di respiro ai lati */
+}
+
+.weird-lines{
+  display: grid;
+  gap: .25em;             /* spazio verticale tra le righe */
+}
+
+.weird-lines > span{
+  /* stile tipografico */
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: .02em;
+  line-height: 1.1;
+  font-size: clamp(1rem, 2.2vw, 1.45rem);
+
+  /* “stranezza” controllata */
+  width: min(100%, var(--w));  /* larghezza della singola riga */
+  margin-left: var(--x, 0);    /* offset orizzontale a sinistra */
+
+  /* sempre allineato a sinistra (non centrato) */
+  text-align: left;
+}
+
+/* su schermi stretti rimpicciolisco un filo
+   e riduco gli offset per non far toccare i bordi */
+@media (max-width: 700px){
+  .weird-lines > span{
+    font-size: clamp(.95rem, 3.5vw, 1.15rem);
+    margin-left: calc(var(--x, 0) * .6);
+  }
+}
+
+/* Sezione costruzione */
+.illu-build {
+  text-align: center;
+  margin: clamp(40px, 6vw, 100px) auto;
+  width: min(1200px, 90%);
+}
+
+.illu-build__title {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: #fff;
+  margin-bottom: 36px;
+  font-weight: 700;
+}
+
+.illu-build__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.illu-step {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 18px;
+  padding: 14px;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.illu-step:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+}
+
+.illu-step__media {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.illu-step__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.illu-step:hover img {
+  transform: scale(1.08);
+}
+
+.illu-step figcaption {
+  margin-top: 12px;
+  color: #ffffff;
+  font-size: clamp(.9rem, 1.6vw, 1.05rem);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .illu-build__grid {
+    gap: 18px; /* meno spazio tra i box */
+  }
+
+  .illu-step__media {
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+  }
+
+  .illu-step__media img {
+    transform: scale(0.9); /* 👈 riduce leggermente l’immagine */
+  }
+
+  .illu-step figcaption {
+    font-size: 0.85rem; /* testo più piccolo */
+  }
+}
+
+/* Ancora più stretto (smartphone piccoli) */
+@media (max-width: 480px) {
+  .illu-step__media img {
+    transform: scale(0.8); /* 👈 ancora più piccola */
+  }
+}
+
+/* ===== VIDEO HERO ===== */
+.video-hero {
+  margin: 60px auto;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* mantiene proporzioni */
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.video-wrapper .video-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.video-wrapper .video-text {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 5rem);
+  z-index: 2;
+}
+
+.video-wrapper .word.top-left {
+  align-self: flex-start;
+}
+
+.video-wrapper .word.bottom-right {
+  align-self: flex-end;
+}
