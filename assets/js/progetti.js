@@ -65,3 +65,4 @@ console.log("Portfolio caricato correttamente!");
 
   requestAnimationFrame(apply);
 })();
+
