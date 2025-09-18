@@ -17,20 +17,19 @@ console.log("Portfolio caricato correttamente!");
     addEventListener('touchmove', onPointer,{passive:true});
   })();
   
-// ===== Background interattivo (SOLO About) =====
+// Background interattivo
 (() => {
-  // esci se NON sei nella pagina About
   if (!document.body.classList.contains('page-about')) return;
 
-  const host = document.querySelector('.bg-interactive'); // l'elemento che ha il background
+  const host = document.querySelector('.bg-interactive'); 
   if (!host) return;
 
-  let t1x = 0.35, t1y = 0.30;   // target [0..1]
+  let t1x = 0.35, t1y = 0.30;  
   let t2x = 0.75, t2y = 0.35;
-  let p1x = t1x, p1y = t1y;     // current (easing)
+  let p1x = t1x, p1y = t1y;    
   let p2x = t2x, p2y = t2y;
 
-  const ease = 0.08;            // 0.05 più morbido • 0.15 più reattivo
+  const ease = 0.08;          
 
   const apply = () => {
     p1x += (t1x - p1x) * ease;
@@ -38,7 +37,6 @@ console.log("Portfolio caricato correttamente!");
     p2x += (t2x - p2x) * ease;
     p2y += (t2y - p2y) * ease;
 
-    // 👇 scrivi le variabili SOLO sull'elemento della pagina About, non su :root
     host.style.setProperty('--p1x', (p1x * 100) + '%');
     host.style.setProperty('--p1y', (p1y * 100) + '%');
     host.style.setProperty('--p2x', (p2x * 100) + '%');

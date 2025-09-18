@@ -17,12 +17,11 @@ console.log("Portfolio caricato correttamente!");
     addEventListener('touchmove', onPointer,{passive:true});
   })();
 
- // ===== Drag fluido + salvataggio posizione (localStorage) =====
+ //  Drag fluido + salvataggio posizione (localStorage) 
 (() => {
     const stickers = document.querySelectorAll('[data-drag]');
     if (!stickers.length) return;
   
-    // helpers di storage in percentuale (così regge i resize)
     const loadPos = (key) => {
       try { return JSON.parse(localStorage.getItem(`sticker:${key}`)); }
       catch { return null; }
@@ -41,10 +40,10 @@ console.log("Portfolio caricato correttamente!");
       const key = el.dataset.key || el.className || Math.random().toString(36).slice(2);
       let dragging = false;
       let startX = 0, startY = 0, startTx = 0, startTy = 0;
-      let tx = 0, ty = 0; // offset corrente in px
+      let tx = 0, ty = 0; 
       let rafId = null;
   
-      // 1) ripristina posizione salvata (se esiste)
+      // 1) ripristina posizione salvata 
       const saved = loadPos(key);
       if (saved) {
         tx = (saved.xPct / 100) * window.innerWidth;
@@ -55,19 +54,16 @@ console.log("Portfolio caricato correttamente!");
       const update = () => { applyTransform(el, tx, ty); rafId = null; };
   
       const onPointerDown = (e) => {
-        // previeni selezione testo/scroll su touch
         e.preventDefault();
         el.classList.add('dragging');
         dragging = true;
   
-        // puntatore
         const p = e.touches ? e.touches[0] : e;
         startX = p.clientX;
         startY = p.clientY;
         startTx = tx;
         startTy = ty;
   
-        // Pointer Events (se disponibili) per maggiore fluidità
         if (el.setPointerCapture && e.pointerId !== undefined) {
           el.setPointerCapture(e.pointerId);
         }
@@ -89,7 +85,6 @@ console.log("Portfolio caricato correttamente!");
         dragging = false;
         el.classList.remove('dragging');
   
-        // salva in percentuale della viewport
         const xPct = (tx / window.innerWidth) * 100;
         const yPct = (ty / window.innerHeight) * 100;
         savePos(key, xPct, yPct);
@@ -109,7 +104,6 @@ console.log("Portfolio caricato correttamente!");
       window.addEventListener('touchmove', onPointerMove, { passive: false });
       window.addEventListener('touchend', onPointerUp);
   
-      // 2) adatta le posizioni salvate quando cambia la finestra
       window.addEventListener('resize', () => {
         const saved = loadPos(key);
         if (!saved) return;
@@ -130,20 +124,19 @@ document.querySelectorAll(".menu-card").forEach(card => {
     }
   });
 
-// ===== Background interattivo (SOLO About) =====
+// Background interattivo  
 (() => {
-  // esci se NON sei nella pagina About
   if (!document.body.classList.contains('page-about')) return;
 
-  const host = document.querySelector('.bg-interactive'); // l'elemento che ha il background
+  const host = document.querySelector('.bg-interactive'); 
   if (!host) return;
 
-  let t1x = 0.35, t1y = 0.30;   // target [0..1]
+  let t1x = 0.35, t1y = 0.30;   
   let t2x = 0.75, t2y = 0.35;
-  let p1x = t1x, p1y = t1y;     // current (easing)
+  let p1x = t1x, p1y = t1y;    
   let p2x = t2x, p2y = t2y;
 
-  const ease = 0.08;            // 0.05 più morbido • 0.15 più reattivo
+  const ease = 0.08;           
 
   const apply = () => {
     p1x += (t1x - p1x) * ease;
@@ -151,7 +144,6 @@ document.querySelectorAll(".menu-card").forEach(card => {
     p2x += (t2x - p2x) * ease;
     p2y += (t2y - p2y) * ease;
 
-    // 👇 scrivi le variabili SOLO sull'elemento della pagina About, non su :root
     host.style.setProperty('--p1x', (p1x * 100) + '%');
     host.style.setProperty('--p1y', (p1y * 100) + '%');
     host.style.setProperty('--p2x', (p2x * 100) + '%');
@@ -179,7 +171,7 @@ document.querySelectorAll(".menu-card").forEach(card => {
   requestAnimationFrame(apply);
 })();
 
-// ===== Sticker About: drag + save (chiavi stabili) =====
+// Sticker About: drag + save 
 (() => {
   if (!document.body.classList.contains('page-about')) return;
 
@@ -191,13 +183,11 @@ document.querySelectorAll(".menu-card").forEach(card => {
   const apply = (el, x, y) => { el.style.setProperty('--tx', x+'px'); el.style.setProperty('--ty', y+'px'); };
 
   els.forEach((el, i) => {
-    // se manca data-key, ne assegno uno deterministico e PERSISTENTE
     if (!el.dataset.key) {
       el.dataset.key = `about-auto-${i}`;
     }
     const key = el.dataset.key;
 
-    // posizionamento iniziale: salvato -> altrimenti dai data-start-*
     const saved = load(key);
     let tx, ty;
     if (saved) {
@@ -230,7 +220,6 @@ document.querySelectorAll(".menu-card").forEach(card => {
       if (!dragging) return;
       dragging = false;
       el.classList.remove('dragging');
-      // salvo in percentuale della viewport
       save(key, (tx/window.innerWidth)*100, (ty/window.innerHeight)*100);
       el.releasePointerCapture?.(e.pointerId);
     };
@@ -239,7 +228,6 @@ document.querySelectorAll(".menu-card").forEach(card => {
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
 
-    // ricalcola al resize mantenendo la posizione salvata
     window.addEventListener('resize', () => {
       const s = load(key); if (!s) return;
       tx = (s.xPct/100) * window.innerWidth;
@@ -251,14 +239,13 @@ document.querySelectorAll(".menu-card").forEach(card => {
   console.log('Sticker About – chiavi stabili + salvataggio OK');
 })();
 
-// ===== Album slider (drag + prev/next + tilt 3D) – SOLO About =====
+// ===== Album slider 
 (() => {
   if (!document.body.classList.contains('page-about')) return;
 
   const scroller = document.querySelector('#album-scroller');
   if (!scroller) return;
 
-  // 1) drag-to-scroll
   let isDown = false, startX = 0, startScroll = 0;
   const down = (e) => { isDown = true; startX = e.clientX || e.touches?.[0]?.clientX || 0; startScroll = scroller.scrollLeft; };
   const move = (e) => {
@@ -275,7 +262,6 @@ document.querySelectorAll(".menu-card").forEach(card => {
   scroller.addEventListener('touchmove', move,   { passive: true });
   scroller.addEventListener('touchend',  up);
 
-  // 2) prev/next buttons
   const prevBtn = document.querySelector('.album-nav.prev');
   const nextBtn = document.querySelector('.album-nav.next');
   const step = () => scroller.querySelector('.album-card')?.offsetWidth || 200;
@@ -283,17 +269,16 @@ document.querySelectorAll(".menu-card").forEach(card => {
   prevBtn?.addEventListener('click', () => scroller.scrollBy({ left: -step() - 16, behavior: 'smooth' }));
   nextBtn?.addEventListener('click', () => scroller.scrollBy({ left:  step() + 16, behavior: 'smooth' }));
 
-  // 3) tilt 3D + glow che segue il mouse
   scroller.querySelectorAll('.album-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const r = card.getBoundingClientRect();
-      const mx = ((e.clientX - r.left) / r.width) * 100;   // 0..100
+      const mx = ((e.clientX - r.left) / r.width) * 100;  
       const my = ((e.clientY - r.top)  / r.height) * 100;
       card.style.setProperty('--mx', mx + '%');
       card.style.setProperty('--my', my + '%');
 
-      const rx = ((e.clientY - r.top) / r.height - .5) * -10; // tilt X
-      const ry = ((e.clientX - r.left)/ r.width  - .5) *  10; // tilt Y
+      const rx = ((e.clientY - r.top) / r.height - .5) * -10; 
+      const ry = ((e.clientX - r.left)/ r.width  - .5) *  10; 
       card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
     });
     card.addEventListener('mouseleave', () => { card.style.transform = 'none'; });
