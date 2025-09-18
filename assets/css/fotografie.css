@@ -6,62 +6,36 @@ body {
   padding: 0;
 }
 
-/* Logo */
-.logo {
-  max-width: 260px;  /* grandezza massima */
-  height: auto;      /* mantiene proporzioni */
-}
-
-/* base scura con leggere sfumature */
+/* Background con sfumature */
 .bg-interactive{
   position: relative;
   min-height: 100svh;
-  color:#e188e8;
   background:
-    /* alone principale che segue il mouse (molto ampio e tenue) */
     radial-gradient(1000px 700px at var(--mx) var(--my), color-mix(in oklab, hsl(var(--tintB)) 70%, transparent), transparent 70%),
-
-    /* velatura fredda molto grande (quasi impercettibile) */
     radial-gradient(1400px 900px at calc(var(--mx)*0.35) calc(var(--my)*1.2),
-      color-mix(in oklab, hsl(var(--tintA)) 12%, transparent), transparent 75%),
-
-    /* vignettatura dolce ai bordi */
+    color-mix(in oklab, hsl(var(--tintA)) 12%, transparent), transparent 75%),
     radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
-
-    /* base */
     linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
   background-blend-mode: screen, screen, multiply, normal;
   transition: background-position .1s ease;
 }
 
-/* Noise (più presente) */
-.bg-interactive::after{
-  content:"";
-  position:absolute; inset:0; pointer-events:none;
-  /* noise SVG più fitto + leggera grana */
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+/* colore background */
+.page-about {
+  --deep: #538168;
+  --mid:  #bebec6;
+  --tintA: 210 100% 55%; 
+  --tintB: 270 85% 60%; 
 }
 
-/* versione statica per reduced-motion */
-@media (prefers-reduced-motion: reduce){
-  .bg-interactive{
-    background:
-      radial-gradient(1000px 700px at 45% 35%, color-mix(in oklab, hsl(var(--tintB)) 14%, transparent), transparent 70%),
-      radial-gradient(1400px 900px at 25% 75%,  color-mix(in oklab, hsl(var(--tintA)) 10%, transparent), transparent 75%),
-      radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
-      linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
-  }
-}
-
-/* Cornice sottile bianca */
+/* Cornice bianca che racchiude la pagina */
 .bg-interactive::before {
   content: "";
   position: absolute;
-  inset: 20px; /* distanza dal bordo, puoi ridurre/aumentare */
-  border: 3px solid rgba(255, 255, 255, 0.738); /* sottile, bianca semi-trasparente */
-  border-radius: 24px; /* angoli arrotondati */
-  pointer-events: none; /* non blocca i click */
+  inset: 20px; 
+  border: 3px solid rgba(255, 255, 255, 0.738); 
+  border-radius: 24px; 
+  pointer-events: none; 
   z-index: 1;
 }
 
@@ -71,58 +45,38 @@ body {
   100% { transform: translateX(calc(100vw - 100%)); }
 }
 
-/* About */
-.page-about {
-  --deep: #538168;
-  --mid:  #bebec6;
-  --tintA: 210 100% 55%; /* ciano */
-  --tintB: 270 85% 60%;  /* viola */
-}
-
 .logopiccolo img {
 height: 50px;         
 margin-top: 40px;  
 margin-left: 120px;
 }
 
-/* Logo About */
+/* Logo Moonlish */
 .about-logo img {
-height: 60px;   /* 👈 altezza fissa */
-width: auto;    /* mantiene proporzioni */
+height: 60px;   
+width: auto;    
 display: block;
 }
 
-/* Logo About */
-.about-logo img {
-height: 60px;   /* 👈 altezza fissa */
-width: auto;    /* mantiene proporzioni */
-display: block;
-}
-
-/* --- TOP BAR centrata, con spazio sotto la cornice --- */
+/* --- Menù centrato nel mezzo della pagina --- */
 .page-about .top-bar{
 display:flex;
-flex-direction:column;          /* logo sopra, menu sotto */
+flex-direction:column;          
 align-items:center;
 justify-content:center;
 gap: 14px;
-
-/* niente margin-top che “sposta” la percezione della cornice */
-margin-top: 0;
-
-/* usiamo padding interno per abbassare il blocco rispetto alla cornice */
 padding-top: clamp(16px, 3vw, 36px);
 margin-bottom: clamp(20px, 4vw, 48px);
 }
 
-/* Logo davvero responsive (limiti più stretti) */
+/* blocco menù responsive */
 .page-about .top-bar .about-logo img{
-height: clamp(44px, 7vw, 88px);   /* min 44px, max 88px */
+height: clamp(44px, 7vw, 88px);   
 width: auto;
 display:block;
 }
 
-/* Menu centrato + dimensioni che non “esplodono” */
+/* Per controllare le misure e spaziature del menu*/
 .page-about .top-bar .about-nav{
 display:flex;
 gap: clamp(10px, 2vw, 22px);
@@ -134,7 +88,7 @@ justify-content:center;
 color:#ffffff;
 text-decoration:none;
 font-weight:700;
-font-size: clamp(.90rem, 1.6vw, 1.10rem);  /* testo che scala poco */
+font-size: clamp(.90rem, 1.6vw, 1.10rem); 
 line-height:1;
 padding: .25rem .1rem;
 transition: color .2s ease;
@@ -152,7 +106,6 @@ border-radius:999px;
 padding:.30rem .80rem;
 }
 
-/* Mobile: un filo più compatto */
 @media (max-width: 768px){
 .page-about .top-bar{ padding-top: 30px; gap: 10px; }
 .page-about .top-bar .about-nav{ gap: 12px; }
@@ -160,18 +113,18 @@ padding:.30rem .80rem;
 
 .page-about main { margin-top: clamp(8px, 2vw, 24px); }
 
-/* Footer About */
+/* Footer */
 .page-about footer {
 position: relative;
 bottom: 0;
 text-align: center;
 font-size: 0.9rem;
-color: #fff;          /* 👈 testo bianco */
-margin-bottom: 20px;  /* 👈 alzato sopra la cornice */
-opacity: 1;           /* 👈 niente trasparenza */
+color: #fff;         
+margin-bottom: 20px;  
+opacity: 1;       
 }
 
-/* ===== Fotografie (scoped) ===== */
+/* Fotografie */
 .page-fotografie .container{ max-width: 1100px; margin: 0 auto; padding: 24px; }
 
 .page-fotografie .page-title{
@@ -184,7 +137,7 @@ opacity: 1;           /* 👈 niente trasparenza */
   margin: 0 0 16px;
 }
 
-/* Carousel */
+/* Carosello delle fotografie */
 .page-fotografie .carousel{
   position: relative;
   display: grid;
@@ -193,6 +146,7 @@ opacity: 1;           /* 👈 niente trasparenza */
   gap: 14px;
   margin-top: 6px;
 }
+
 .page-fotografie .track{
   position: relative;
   height: clamp(240px, 42vw, 480px);
@@ -202,7 +156,7 @@ opacity: 1;           /* 👈 niente trasparenza */
   grid-auto-columns: 100%;
 }
 
-/* Slide “3D” fake */
+/* Slide effetto 3d della slide */
 .page-fotografie .slide{
   position: absolute;
   inset: 0;
@@ -279,13 +233,12 @@ opacity: 1;           /* 👈 niente trasparenza */
 .page-fotografie .thumb:hover{ transform: translateY(-2px); }
 .page-fotografie .thumb[aria-current="true"]{ border-color:#fff; }
 
-/* Responsive piccole */
 @media (max-width: 640px){
   .page-fotografie .slide--left  { transform: translateX(-28%) rotate(-5deg) scale(.9); }
   .page-fotografie .slide--right { transform: translateX( 28%) rotate( 5deg) scale(.9); }
 }
 
-/* === ROTOR 3D di fotografie === */
+/* effetto rotatorio delle fotografie */
 .photo-rotor-section{
   position: relative;
   display: grid;
@@ -294,10 +247,11 @@ opacity: 1;           /* 👈 niente trasparenza */
   padding: 48px 0 64px;
 }
 
+ /* effetto di profondità 3D alle card*/
 .photo-rotor{
   width: min(1100px, 92vw);
   height: clamp(260px, 42vw, 420px);
-  perspective: 1400px;         /* profondità 3D */
+  perspective: 1400px;    
 }
 
 .photo-stage{
@@ -327,22 +281,23 @@ opacity: 1;           /* 👈 niente trasparenza */
   width: 100%; height: 100%; object-fit: cover; display: block;
 }
 
-/* card non centrali: leggero tilt come nella reference */
+/* Quando la card non è centrata */
 .photo-card:not(.is-center){
   filter: saturate(.9) contrast(.95);
 }
 
-/* card centrata (attiva) */
+/* quando la card centrata (quindi quella attiva) */
 .photo-card.is-center{
   box-shadow: 0 18px 40px rgba(0,0,0,.45);
   filter: none;
 }
 
-/* info centrale sotto */
+/* info centrale card sotto */
 .photo-info{
   text-align: center;
   max-width: min(680px, 86vw);
 }
+
 .photo-title{
   color: #fff;
   font-weight: 800;
@@ -358,7 +313,7 @@ opacity: 1;           /* 👈 niente trasparenza */
   line-height: 1.6;
 }
 
-/* frecce */
+/* bottoni frecce per foto */
 .photo-controls{
   display: flex; gap: 14px;
 }
@@ -372,37 +327,35 @@ opacity: 1;           /* 👈 niente trasparenza */
 .photo-btn:hover{ transform: translateY(-2px); background:#f1f1f1; }
 .photo-btn:active{ transform: translateY(0); }
 
-/* responsive: palco un po’ più basso */
 @media (max-width: 768px){
   .photo-rotor{ height: clamp(300px, 60vw, 360px); }
 }
 
-/* ====== MOTTO con foto dietro (no conflitti) ====== */
+/* Frase centrale grande */
 .motto{
   position: relative;
   width: min(1400px, 92vw);
   margin: clamp(20px, 6vw, 90px) auto;
 }
 
-/* Testo grande con il font della “welcome” */
 .motto__text{
   position: relative;
-  z-index: 2;                          /* sopra alle foto */
+  z-index: 2;                      
   margin: 0;
   color: #fff;
   font-family: 'Share Tech Mono', monospace;
   font-weight: 700;
-  line-height: .82;                     /* interlinea ravvicinata */
+  line-height: .82;                   
 }
 .motto .line{
   display: block;
-  font-size: clamp(2em, 10vw, 10rem); /* grande ma responsivo */
+  font-size: clamp(2em, 10vw, 10rem); 
   margin-left: 40px;
   letter-spacing: .02em;
   text-shadow: none;
 }
 
-/* “Disallineamento” leggero fra le righe (look più dinamico) */
+/* Renderle più oblique e instabili in modo leggero */
 .motto .l1 { transform: translateX(20%); }
 .motto .l2 { transform: translateX(9vw);  }
 .motto .l3 { transform: translateX(1vw);  }
@@ -411,22 +364,21 @@ opacity: 1;           /* 👈 niente trasparenza */
 .motto__frames{
   position: absolute;
   inset: 0;
-  z-index: 1;       /* dietro al testo */
+  z-index: 1;      
   pointer-events: none;
 }
 
-/* Card/foto responsive: si riducono quando stringi lo schermo */
+/* Per ridurre quando stringi lo schermo */
 .motto__ph{
   position: absolute;
-  width: clamp(200px, 436vw, 160px); /* <— qui “scala” con la viewport */
+  width: clamp(200px, 436vw, 160px); 
   aspect-ratio: 4 / 5;
-  object-fit: cover;
-  border-radius: 0;                  /* niente smussatura */
+  object-fit: cover;                
   box-shadow: 0 12px 36px rgba(0,0,0,.32);
   opacity: .95;
 }
 
-/* Posizioni (regolabili a gusto) */
+/* Posizioni delle fotografie dietro al testo */
 .motto__ph--a{
   top: clamp(-420px, -6vw, -90px);
   left: clamp(-10vw, 9vw, 18vw);
@@ -438,12 +390,11 @@ opacity: 1;           /* 👈 niente trasparenza */
   transform: rotate(7deg);
 }
 .motto__ph--c{
-  top: clamp(-56vh, 22vh, 6vh);      /* più alta dietro “RICORDO” */
+  top: clamp(-56vh, 22vh, 6vh);     
   left: clamp(29vw, -40vw, 6vw);
   transform: rotate(-4deg);
 }
 
-/* Breakpoint: stringo un po’ il testo e le card si riducono di più */
 @media (max-width: 1024px){
   .motto .line{ font-size: clamp(2rem, 12vw, 7.4rem); line-height: .86; }
   .motto__ph{ width: clamp(110px, 20vw, 200px); }
@@ -452,82 +403,24 @@ opacity: 1;           /* 👈 niente trasparenza */
   .motto .l3 { transform: translateX(0);   }
 }
 
-/* Mobile: composizione più raccolta */
 @media (max-width: 100px){
   .motto{ width: 24vw; }
   .motto .line{ font-size: clamp(1rem, 14vw, 5.6rem); }
   .motto__ph{ width: clamp(px, 26vw, 160px); }
-
-  /* Ritaro le posizioni per non coprire troppo il testo */
   .motto__ph--a{ left: 6vw;  top: -10px;  transform: rotate(-6deg); }
   .motto__ph--b{ left: auto; right: 4vw; top: 2vh; transform: rotate(6deg); }
   .motto__ph--c{ left: 22vw; top: 18vh; transform: rotate(-3deg); }
 }
 
-.hero-quote{
-  position: relative;
-  width: min(1400px, 92vw);
-  margin: clamp(32px, 6vw, 80px) auto;
-  overflow: visible;
-  padding-left: 6%;   /* 👈 sposta tutto il blocco un po’ a destra */
-}
-
-/* Righe di testo */
-.hero-quote .quote .row:nth-child(1){ transform: translateX(16%); }
-.hero-quote .quote .row:nth-child(2){ transform: translateX(8%); }
-.hero-quote .quote .row:nth-child(3){ transform: translateX(20%); }
-
-/* step 1200 */
-@media (max-width: 1200px){
-  .hero-quote .quote .row{ font-size: clamp(2.2rem, 8.2vw, 8.6rem); }
-  .hero-quote .sq{ width: clamp(76px, 11vw, 170px); }
-  .hero-quote .sq--c{ top: 48%; left: 36%; }
-}
-
-/* step 992 */
-@media (max-width: 992px){
-  .hero-quote .quote .row{ font-size: clamp(2rem, 7.6vw, 7.8rem); }
-  .hero-quote .sq{ width: clamp(68px, 10vw, 150px); }
-  .hero-quote .sq--a{ left: 12%; }
-  .hero-quote .sq--b{ left: 64%; }
-  .hero-quote .sq--c{ top: 50%; left: 34%; }
-}
-
-/* step 768 */
-@media (max-width: 768px){
-  .hero-quote{ width: min(1000px, 94vw); }
-  .hero-quote .quote .row{
-    font-size: clamp(1.8rem, 7.2vw, 6.6rem);
-    word-spacing: -0.12em;
-  }
-  .hero-quote .sq{ width: clamp(60px, 14vw, 130px); }
-  .hero-quote .sq--a{ top: -6%; left: 10%; }
-  .hero-quote .sq--b{ top:  6%; left: 60%; }
-  .hero-quote .sq--c{ top: 52%; left: 32%; }
-}
-
-/* step 560 (mobile piccolo) */
-@media (max-width: 560px){
-  .hero-quote .quote .row{
-    font-size: clamp(1.6rem, 7.6vw, 5.6rem);
-    line-height: 0.92;
-    word-spacing: -0.16em;
-  }
-  .hero-quote .sq{ width: clamp(52px, 18vw, 110px); }  /* 👈 molto più piccole */
-  .hero-quote .sq--a{ left: 16%; }
-  .hero-quote .sq--b{ left: 56%; }
-  .hero-quote .sq--c{ left: 30%; top: 54%; }
-}
-
-/* --- BASE --- */
+/* BASE */
 *{ box-sizing: border-box; }
-img{ max-width:100%; display:block; } /* niente height:auto globale */
+img{ max-width:100%; display:block; } 
 
-/* --- RIQUADRO BIANCO --- */
+/* box bianco per inserire all'interno le foto slideshow */
 .white-wrap{
   position: relative;
-  max-width: 1200px;        /* NON 100px */
-  margin: 40px auto;        /* centrato: nessun padding “trucco” ai lati */
+  max-width: 1200px;       
+  margin: 40px auto;        
   background: #fff;
   padding: 16px;
   border-radius: 20px;
@@ -536,52 +429,20 @@ img{ max-width:100%; display:block; } /* niente height:auto globale */
   clip-path: inset(0 round 20px);
 }
 
-/* --- SLIDESHOW --- */
-.slideshow-clip{           /* opzionale, ma aiuta col clipping */
+/* SLIDESHOW */
+.slideshow-clip{          
   margin: 24px 0;
   overflow: hidden;
   border-radius: 16px;
 }
 
-.slideshow{
-  position: relative;
-  width: 100%;
-  max-width: 100%;         /* desktop: piena larghezza del riquadro bianco */
-  margin: 0 auto;
-  aspect-ratio: 16 / 9;    /* il box decide l’altezza */
-  border-radius: 16px;
-  overflow: hidden;
-  background: #000;
-}
-
-/* tutte le slide “incollate” al box */
 .slide{
   position: absolute;
   inset: 0;
   opacity: 0;
   transition: opacity .8s ease-in-out;
 }
-.slide.active{ opacity: 1; }
 
-/* 🔑 l’immagine ha SEMPRE la stessa grandezza del box */
-.slideshow .slide img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;       /* riempie senza bande */
-  object-position: center;
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 600px){
-  .white-wrap{ margin: 24px auto; padding: 12px; }
-  .slideshow{ 
-    max-width: 92%;        /* stringi per non toccare i lati */
-    aspect-ratio: 4 / 5;   /* più verticale su mobile */
-    margin: 12px auto;
-  }
-}
-
-/* Contenitore slideshow SENZA cornice nera */
 .slideshow{
   position: relative;
   width: 100%;
@@ -590,35 +451,34 @@ img{ max-width:100%; display:block; } /* niente height:auto globale */
   aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
-  background: transparent;     /* <— niente nero */
-  padding: 0;                  /* <— nessun gap interno */
+  background: transparent;     
+  padding: 0;                  
   border: 0;
 }
 
-/* Reset di sicurezza: nessun padding/bordo sulle slide */
+/* cosi che occupi tutto il box e non lascia margini che mi rompono*/
+.slideshow .slide img{
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;          
+  object-position: center;
+  border: 0;
+  border-radius: 0;           
+}
+
+/* si sballava il padding, ho provato a sistemarlo */
 .slideshow .slide{
   position: absolute;
   inset: 0;
   opacity: 0;
   transition: opacity .8s ease-in-out;
-  padding: 0 !important;       /* <— evita padding ereditati */
+  padding: 0 !important;     
   border: 0 !important;
   background: transparent !important;
 }
 .slideshow .slide.active{ opacity: 1; }
 
-/* L’IMMAGINE RIEMPIE TUTTO IL BOX (niente bande) */
-.slideshow .slide img{
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover;           /* riempie */
-  object-position: center;
-  border: 0;
-  border-radius: 0;            /* il radius lo fa il contenitore */
-}
-
-/* Mobile: più stretto e più verticale */
 @media (max-width: 600px){
   .slideshow{
     max-width: 92%;
