@@ -6,81 +6,40 @@ body {
     padding: 0;
   }
   
-  /* Logo */
-  .logo {
-    max-width: 260px;  /* grandezza massima */
-    height: auto;      /* mantiene proporzioni */
-  }
-  
-  /* base scura con leggere sfumature */
   .bg-interactive{
     position: relative;
     min-height: 100svh;
     color:#9bc7dd;
     background:
-      /* alone principale che segue il mouse (molto ampio e tenue) */
       radial-gradient(1000px 700px at var(--mx) var(--my), color-mix(in oklab, hsl(var(--tintB)) 70%, transparent), transparent 70%),
-  
-      /* velatura fredda molto grande (quasi impercettibile) */
       radial-gradient(1400px 900px at calc(var(--mx)*0.35) calc(var(--my)*1.2),
-        color-mix(in oklab, hsl(var(--tintA)) 12%, transparent), transparent 75%),
-  
-      /* vignettatura dolce ai bordi */
+      color-mix(in oklab, hsl(var(--tintA)) 12%, transparent), transparent 75%),
       radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
-  
-      /* base */
       linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
     background-blend-mode: screen, screen, multiply, normal;
     transition: background-position .1s ease;
   }
   
-  /* Noise (più presente) */
-  .bg-interactive::after{
-    content:"";
-    position:absolute; inset:0; pointer-events:none;
-    /* noise SVG più fitto + leggera grana */
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay;
-  }
-  
-  /* versione statica per reduced-motion */
-  @media (prefers-reduced-motion: reduce){
-    .bg-interactive{
-      background:
-        radial-gradient(1000px 700px at 45% 35%, color-mix(in oklab, hsl(var(--tintB)) 14%, transparent), transparent 70%),
-        radial-gradient(1400px 900px at 25% 75%,  color-mix(in oklab, hsl(var(--tintA)) 10%, transparent), transparent 75%),
-        radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
-        linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
-    }
-  }
-  
-  /* Cornice sottile bianca */
+  /* Cornice bianca */
   .bg-interactive::before {
     content: "";
     position: absolute;
-    inset: 20px; /* distanza dal bordo, puoi ridurre/aumentare */
-    border: 3px solid rgba(255, 255, 255, 0.738); /* sottile, bianca semi-trasparente */
-    border-radius: 24px; /* angoli arrotondati */
-    pointer-events: none; /* non blocca i click */
+    inset: 20px; 
+    border: 3px solid rgba(255, 255, 255, 0.738); 
+    border-radius: 24px; 
+    pointer-events: none; 
     z-index: 1;
   }
-  
-  /* Animazione avanti e indietro */
-  @keyframes bounceX {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(calc(100vw - 100%)); }
-  }
-  
-/* About */
+
+/* colori base del background*/
 .page-about {
     --deep: #6599ee;
     --mid:  #d0cbcb;
-    --tintA: 120 100% 60%; /* azzurro */
-    --tintB: 120 100% 62%; /* blu */
+    --tintA: 120 100% 60%; 
+    --tintB: 120 100% 62%; 
   }
   
-  
-  .logopiccolo img {
+.logopiccolo img {
   height: 50px;         
   margin-top: 40px;  
   margin-left: 120px;
@@ -88,42 +47,29 @@ body {
   
   /* Logo About */
   .about-logo img {
-  height: 60px;   /* 👈 altezza fissa */
-  width: auto;    /* mantiene proporzioni */
+  height: 60px;   
+  width: auto;    
   display: block;
   }
   
-  /* Logo About */
-  .about-logo img {
-  height: 60px;   /* 👈 altezza fissa */
-  width: auto;    /* mantiene proporzioni */
-  display: block;
-  }
-  
-  /* --- TOP BAR centrata, con spazio sotto la cornice --- */
+  /* menu centrato */
   .page-about .top-bar{
   display:flex;
-  flex-direction:column;          /* logo sopra, menu sotto */
+  flex-direction:column;       
   align-items:center;
   justify-content:center;
   gap: 14px;
-  
-  /* niente margin-top che “sposta” la percezione della cornice */
-  margin-top: 0;
-  
-  /* usiamo padding interno per abbassare il blocco rispetto alla cornice */
   padding-top: clamp(16px, 3vw, 36px);
   margin-bottom: clamp(20px, 4vw, 48px);
   }
   
-  /* Logo davvero responsive (limiti più stretti) */
+  /* Per il logo più responsive */
   .page-about .top-bar .about-logo img{
-  height: clamp(44px, 7vw, 88px);   /* min 44px, max 88px */
+  height: clamp(44px, 7vw, 88px);  
   width: auto;
   display:block;
   }
   
-  /* Menu centrato + dimensioni che non “esplodono” */
   .page-about .top-bar .about-nav{
   display:flex;
   gap: clamp(10px, 2vw, 22px);
@@ -135,7 +81,7 @@ body {
   color:#fff;
   text-decoration:none;
   font-weight:700;
-  font-size: clamp(.90rem, 1.6vw, 1.10rem);  /* testo che scala poco */
+  font-size: clamp(.90rem, 1.6vw, 1.10rem); 
   line-height:1;
   padding: .25rem .1rem;
   transition: color .2s ease;
@@ -167,15 +113,15 @@ body {
   bottom: 0;
   text-align: center;
   font-size: 0.9rem;
-  color: #fff;          /* 👈 testo bianco */
-  margin-bottom: 20px;  /* 👈 alzato sopra la cornice */
-  opacity: 1;           /* 👈 niente trasparenza */
+  color: #fff;          
+  margin-bottom: 20px;  
+  opacity: 1;          
   }
 
   /* Contenitore a scacchiera */
 .illu-scacchiera {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 colonne */
+  grid-template-columns: repeat(5, 1fr); 
   gap: 20px;
   max-width: 1400px;
   margin: 60px auto;
@@ -185,7 +131,7 @@ body {
 .illu-box {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 1 / 1;   /* quadrati */
+  aspect-ratio: 1 / 1;   
   border-radius: 10px;
   background: rgba(255,255,255,0.05);
   transition: transform .3s ease;
@@ -231,17 +177,17 @@ body {
 
   .illu-scacchiera {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* quadrati */
-  gap: 32px; /* 👈 aumenta lo spazio (prima era 20px o meno) */
-  max-width: 1200px; /* riquadro contenitore */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+  gap: 32px; 
+  max-width: 1200px; 
   margin: 0 auto;
   padding: 40px 20px;
 }
 /* Sezione scacchiera illustrazioni */
 .illu-scacchiera {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* si adatta */
-  gap: 32px; /* spazio tra i quadrati */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+  gap: 32px; 
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
@@ -258,7 +204,7 @@ body {
 /* Contenitore immagine */
 .illu-media {
   width: 100%;
-  aspect-ratio: 1 / 1; /* mantiene quadrato */
+  aspect-ratio: 1 / 1; 
   overflow: hidden;
   border-radius: 8px;
 }
@@ -267,7 +213,7 @@ body {
 .illu-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;  /* taglia senza deformare */
+  object-fit: cover;  
   transition: transform .3s ease;
 }
 
@@ -286,7 +232,7 @@ body {
 /* Sezione scacchiera illustrazioni */
 .illu-scacchiera {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* adattivo */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
   gap: 32px;
   max-width: 1200px;
   margin: 0 auto;
@@ -332,7 +278,6 @@ body {
 /* === GRIGLIA ILLUSTRAZIONI (100% responsive) === */
 .illu-scacchiera{
   display: grid;
-  /* colonne che si adattano: tra 120px e 220px; quando non c'è spazio vanno a capo */
   grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 22vw, 220px), 1fr));
   gap: clamp(14px, 2.4vw, 28px);
   width: min(1200px, 92vw);       /* dentro la cornice */
@@ -340,16 +285,14 @@ body {
   align-items: start;
 }
 
-/* Card: IMPORTANTISSIMO min-width:0 per permettere di stringere nelle grid */
 .illu-card{
   display: flex;
   flex-direction: column;
-  min-width: 0;           /* ← senza questo molte card non si riducono */
+  min-width: 0;       
 }
 
-/* Riquadro immagine: sempre quadrato e fluido */
 .illu-media{
-  width: 100%;            /* niente width fisse! */
+  width: 100%;           
   aspect-ratio: 1 / 1;
   border-radius: 12px;
   overflow: hidden;
@@ -357,7 +300,6 @@ body {
   box-shadow: 0 10px 28px rgba(0,0,0,.18) inset;
 }
 
-/* Immagine che riempie senza deformarsi */
 .illu-card img{
   display: block;
   width: 100%;
@@ -366,23 +308,19 @@ body {
   transition: transform .3s ease;
 }
 
-/* Zoom al passaggio */
 .illu-card:hover img{ transform: scale(1.06); }
 
-/* Didascalia */
 .illu-card figcaption{
   margin-top: .5rem;
   font-size: clamp(.8rem, 1.6vw, .95rem);
   color: rgba(255,255,255,.92);
 }
 
-/* (Opzionale) un po’ di “zig-zag” come nel tuo esempio */
 .illu-card:nth-child(5n+2) { transform: translateY(6%); }
 .illu-card:nth-child(5n+3) { transform: translateY(-4%); }
 .illu-card:nth-child(5n+4) { transform: translateY(8%);  }
 .illu-card:nth-child(5n+5) { transform: translateY(-6%); }
 
-/* Su schermi piccoli, zig-zag più leggero */
 @media (max-width: 640px){
   .illu-card:nth-child(n) { transform: none; }
 }
@@ -432,34 +370,27 @@ body {
 
 .motto-weird{
   margin: clamp(40px, 8vw, 80px) auto;
-  max-width: 1200px;      /* resta dentro la tua cornice */
-  padding: 0 24px;        /* un filo di respiro ai lati */
+  max-width: 1200px;    
+  padding: 0 24px;        
 }
 
 .weird-lines{
   display: grid;
-  gap: .25em;             /* spazio verticale tra le righe */
+  gap: .25em;            
 }
 
 .weird-lines > span{
-  /* stile tipografico */
   color: #fff;
   text-transform: uppercase;
   font-weight: 900;
   letter-spacing: .02em;
   line-height: 1.1;
   font-size: clamp(1rem, 2.2vw, 1.45rem);
-
-  /* “stranezza” controllata */
-  width: min(100%, var(--w));  /* larghezza della singola riga */
-  margin-left: var(--x, 0);    /* offset orizzontale a sinistra */
-
-  /* sempre allineato a sinistra (non centrato) */
+  width: min(100%, var(--w));
+  margin-left: var(--x, 0);  
   text-align: left;
 }
 
-/* su schermi stretti rimpicciolisco un filo
-   e riduco gli offset per non far toccare i bordi */
 @media (max-width: 700px){
   .weird-lines > span{
     font-size: clamp(.95rem, 3.5vw, 1.15rem);
@@ -525,7 +456,7 @@ body {
 /* Mobile */
 @media (max-width: 768px) {
   .illu-build__grid {
-    gap: 18px; /* meno spazio tra i box */
+    gap: 18px; 
   }
 
   .illu-step__media {
@@ -534,22 +465,21 @@ body {
   }
 
   .illu-step__media img {
-    transform: scale(0.9); /* 👈 riduce leggermente l’immagine */
+    transform: scale(0.9); 
   }
 
   .illu-step figcaption {
-    font-size: 0.85rem; /* testo più piccolo */
+    font-size: 0.85rem; 
   }
 }
 
-/* Ancora più stretto (smartphone piccoli) */
 @media (max-width: 480px) {
   .illu-step__media img {
-    transform: scale(0.8); /* 👈 ancora più piccola */
+    transform: scale(0.8);
   }
 }
 
-/* ===== VIDEO HERO ===== */
+/* VIDEO HERO */
 .video-hero {
   margin: 60px auto;
 }
@@ -557,7 +487,7 @@ body {
 .video-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;   /* mantiene proporzioni */
+  aspect-ratio: 16 / 9;  
   overflow: hidden;
   border-radius: 20px;
 }

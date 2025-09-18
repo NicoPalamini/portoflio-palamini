@@ -17,20 +17,19 @@ console.log("Portfolio caricato correttamente!");
     addEventListener('touchmove', onPointer,{passive:true});
   })();
   
-// ===== Background interattivo (SOLO About) =====
+//  Background interattivo //
 (() => {
-  // esci se NON sei nella pagina About
   if (!document.body.classList.contains('page-about')) return;
 
-  const host = document.querySelector('.bg-interactive'); // l'elemento che ha il background
+  const host = document.querySelector('.bg-interactive'); 
   if (!host) return;
 
-  let t1x = 0.35, t1y = 0.30;   // target [0..1]
+  let t1x = 0.35, t1y = 0.30;   
   let t2x = 0.75, t2y = 0.35;
-  let p1x = t1x, p1y = t1y;     // current (easing)
+  let p1x = t1x, p1y = t1y;    
   let p2x = t2x, p2y = t2y;
 
-  const ease = 0.08;            // 0.05 più morbido • 0.15 più reattivo
+  const ease = 0.08;           
 
   const apply = () => {
     p1x += (t1x - p1x) * ease;
@@ -38,7 +37,6 @@ console.log("Portfolio caricato correttamente!");
     p2x += (t2x - p2x) * ease;
     p2y += (t2y - p2y) * ease;
 
-    // 👇 scrivi le variabili SOLO sull'elemento della pagina About, non su :root
     host.style.setProperty('--p1x', (p1x * 100) + '%');
     host.style.setProperty('--p1y', (p1y * 100) + '%');
     host.style.setProperty('--p2x', (p2x * 100) + '%');
@@ -66,9 +64,8 @@ console.log("Portfolio caricato correttamente!");
   requestAnimationFrame(apply);
 })();
 
-// ===== Fotografie page script =====
+// Fotografie  =====
 (() => {
-    // Dataset: sostituisci con le tue immagini
     const DATA = [
       {
         src: 'assets/photo/photo-1.webp',
@@ -95,7 +92,6 @@ console.log("Portfolio caricato correttamente!");
     const root = document.querySelector('.page-fotografie');
     if (!root) return;
   
-    // DOM refs
     const track   = root.querySelector('.track');
     const capTit  = root.querySelector('.caption__title');
     const capDesc = root.querySelector('.caption__desc');
@@ -103,7 +99,7 @@ console.log("Portfolio caricato correttamente!");
     const nextBtn = root.querySelector('.nav.next');
     const thumbsC = root.querySelector('.thumbs');
   
-    // Preload
+    // caricamento immagini
     DATA.forEach(d => { const i = new Image(); i.src = d.src; });
   
     // Build slides
@@ -135,7 +131,7 @@ console.log("Portfolio caricato correttamente!");
     let auto  = null;
   
     function paint(){
-      slides.forEach(s => s.className = 'slide'); // reset
+      slides.forEach(s => s.className = 'slide'); 
       const l = (index - 1 + DATA.length) % DATA.length;
       const r = (index + 1) % DATA.length;
   
@@ -174,7 +170,7 @@ console.log("Portfolio caricato correttamente!");
     track.addEventListener('mouseenter', stopAuto);
     track.addEventListener('mouseleave', startAuto);
   
-    // Click sui lati per muovere (quando non c'è btn)
+    // Click sui lati per muovere
     slides.forEach(s => {
       s.addEventListener('click', (e) => {
         const rect = s.getBoundingClientRect();
@@ -183,7 +179,6 @@ console.log("Portfolio caricato correttamente!");
       });
     });
   
-    // Init
     paint();
     startAuto();
   })();
@@ -196,33 +191,25 @@ console.log("Portfolio caricato correttamente!");
     const prevBtn = document.querySelector(".photo-prev");
     const nextBtn = document.querySelector(".photo-next");
   
-    const total = cards.length;          // 10
-    const visible = 5;                   // mostriamo 5 intorno al centro
-    const angleStep = 360 / total;       // angolo tra card
-    let index = 0;                       // card centrale corrente
+    const total = cards.length;          
+    const visible = 5;                   
+    const angleStep = 360 / total;       
+    let index = 0;                       
     let autoplayId = null;
   
-    // posiziona le card lungo un cerchio 3D e applica opacità/tilt
+
     function render() {
-      // angolo “frontale”: portiamo la card corrente davanti
       const rotation = -index * angleStep;
       stage.style.transform = `translateZ(-320px) rotateY(${rotation}deg)`;
-      // NB: il translateZ qui è solo per creare profondità generale del palco
   
       cards.forEach((card, i) => {
-        // calcoliamo la posizione relativa a 'index'
         const rel = ((i - index + total) % total);
-        // distanza minima dal centro su 0..floor(total/2)
         const dist = Math.min(rel, total - rel);
-  
-        // visibilità: solo 5 (2 sx, centro, 2 dx)
         const isVisible = dist <= Math.floor(visible / 2);
         const isCenter  = dist === 0;
   
-        // ciascuna card è ruotata sul cerchio: posizioniamo in 3D
         const cardAngle = i * angleStep;
-        // raggio: quanto “spingiamo” in Z le card per stare sul cerchio
-        const radius = 540; // prova 480..600 per variare
+        const radius = 540; 
         card.style.transform =
           `translate(-50%, -50%) rotateY(${cardAngle}deg) translateZ(${radius}px) ${
              !isCenter ? `rotateZ(${(i%2? -6:6)}deg)` : ''
@@ -233,12 +220,12 @@ console.log("Portfolio caricato correttamente!");
         card.style.pointerEvents = isVisible ? "auto" : "none";
         card.classList.toggle("is-center", isCenter);
   
-        // click su una card visibile: portala al centro
+        // click su una card 
         if (!card._clickBound) {
           card.addEventListener("click", () => {
-            // trova differenza minima (clockwise/counter)
+  
             const relIdx = ((i - index + total) % total);
-            const altRel = relIdx - total; // verso opposto
+            const altRel = relIdx - total; 
             const step = Math.abs(altRel) < relIdx ? altRel : relIdx;
             index = (index + step + total) % total;
             updateInfo();
@@ -267,7 +254,6 @@ console.log("Portfolio caricato correttamente!");
       render();
     }
   
-    // autoplay (disattiva se non ti serve)
     function startAutoplay() {
       autoplayId = setInterval(next, 4000);
     }
@@ -278,13 +264,11 @@ console.log("Portfolio caricato correttamente!");
     nextBtn.addEventListener("click", () => { next(); resetAutoplay(); });
     prevBtn.addEventListener("click", () => { prev(); resetAutoplay(); });
   
-    // init
     updateInfo();
     render();
     startAutoplay();
   });
 
-  // Cambia qui la velocità (millisecondi)
 const INTERVAL_MS = 4000;
 
 (function initSlideshow(){

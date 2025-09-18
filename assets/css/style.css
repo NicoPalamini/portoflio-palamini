@@ -1,3 +1,5 @@
+/*  HOME PAGE */
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #0b0b0f;
@@ -5,11 +7,11 @@ body {
     margin: 0;
     padding: 0;
   }
-  
-  /* Logo */
+
+  /* Logo home */
   .logo {
-    max-width: 260px;  /* grandezza massima */
-    height: auto;      /* mantiene proporzioni */
+    max-width: 260px;  
+    height: auto;     
   }
   
   /* Menu grid */
@@ -31,12 +33,10 @@ body {
     transition: transform .25s ease, 
   }
 
-  /* sotto 768px: 1 colonna */
 @media (max-width: 100px){
   .menu-grid{ grid-template-columns: 1fr; }
 }
 
-/* social più compatti su schermi piccoli */
 @media (max-width: 400px){
   .socials{ margin-top: .5rem; }
 }
@@ -47,34 +47,34 @@ body {
     font-weight: 600;
     letter-spacing: .05em;
   }
-  
- /* immagine di anteprima dentro la card */
+
+/* anteprima immagini del menù quando passo sopra col mouse*/
 .menu-card .card-bg{
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;      /* si adatta al box */
-    opacity: 0;             /* nascosta di default */
-    transform: scale(1.06); /* leggero zoom */
+    object-fit: cover;     
+    opacity: 0;             
+    transform: scale(1.06); 
     transition: opacity .35s ease, transform .35s ease;
     z-index: 1;
-    pointer-events: none;   /* non blocca i click */
+    pointer-events: none;  
   }
-  
-  /* overlay scuro per testo leggibile */
+
+  /* overlay cosi posso vedere meglio il testo e renderlo leggibile */
   .menu-card::after{
     content:"";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,.35); /* livello scuro sopra la foto */
+    background: rgba(0,0,0,.35); 
     opacity: 0;
     transition: opacity .35s ease;
     z-index: 1;
   }
 
   .menu-card span {
-    font-family: inherit; /* prende quello del body */
+    font-family: inherit; 
     font-weight: 600;
   }
 
@@ -84,14 +84,14 @@ body {
   }
   
   .menu-card:hover .card-bg{
-    opacity: 1;            /* mostra immagine nitida */
+    opacity: 1;            
     transform: scale(1.05);
   }
   
   .menu-card:hover::after{
-    opacity: 1;            /* attiva overlay scuro */
+    opacity: 1;           
   }
-  
+  /* social */
   .socials {
     display: flex;
     justify-content: center;
@@ -108,7 +108,7 @@ body {
     border-radius: 50%;
     background: white;
     box-shadow: 0 2px 6px rgba(0,0,0,.2);
-    transition: transform 0.2s ease, background 0.3s ease;
+    transition: transform 0.2s ease;
   }
   
   .socials a:hover {
@@ -117,84 +117,58 @@ body {
   }
   
   .socials img {
-    width: 24px;   /* 👈 grandezza icona dentro al cerchio */
+    width: 24px;   
     height: 24px;
     object-fit: contain;
   }
   
-  /* Pulsante Home */
-  .home-btn {
-    position: fixed; top:16px; right:16px; z-index: 40;
-    width:44px; height:44px; display:grid; place-items:center;
-    background:rgba(255,255,255,.1); border-radius:12px;
-  }
-  
- /* Sticker trascinabili – versione fluida con transform */
+ /* Sticker trascinabili */
 .sticker{
     position: absolute;
     z-index: 5;
     user-select: none;
     cursor: grab;
     will-change: transform;
-    /* offset applicato via JS */
     --tx: 0px; --ty: 0px;
     transform: translate3d(var(--tx), var(--ty), 0);
     transition: opacity .15s ease;
   }
-  .sticker:active,
-  .sticker.dragging { cursor: grabbing; opacity: .6; }
+
+  .sticker:active, .sticker.dragging { 
+    cursor: grabbing; opacity: .6; 
+  }
   
   .sticker img{ display:block; filter: drop-shadow(0 8px 15px rgba(0,0,0,.15)); }
 
-  /* Sticker responsive: ridimensionano con lo schermo */
 .sticker img {
     width: clamp(60px, 8vw, 160px);
     height: auto;
   }
 
- /* ===== Sfondo: sfumature morbide + vignettatura + noise ===== */
+ /* Sfondo background */
 :root{
     --mx: 50%;
     --my: 40%;
-    /* Palette più soft */
     --deep: #538168;
     --mid:  #bebec6;
     --tintA: 210 100% 55%; /* ciano */
     --tintB: 270 85% 60%;  /* viola */
   }
   
-  /* base scura con leggere sfumature */
   .bg-interactive{
     position: relative;
     min-height: 100svh;
     color:#9bc7dd;
     background:
-      /* alone principale che segue il mouse (molto ampio e tenue) */
       radial-gradient(1000px 700px at var(--mx) var(--my), color-mix(in oklab, hsl(var(--tintB)) 70%, transparent), transparent 70%),
-  
-      /* velatura fredda molto grande (quasi impercettibile) */
       radial-gradient(1400px 900px at calc(var(--mx)*0.35) calc(var(--my)*1.2),
-        color-mix(in oklab, hsl(var(--tintA)) 12%, transparent), transparent 75%),
-  
-      /* vignettatura dolce ai bordi */
+      color-mix(in oklab, hsl(var(--tintA)) 12%, transparent), transparent 75%),
       radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
-  
-      /* base */
       linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
     background-blend-mode: screen, screen, multiply, normal;
     transition: background-position .1s ease;
   }
   
-  /* Noise (più presente) */
-  .bg-interactive::after{
-    content:"";
-    position:absolute; inset:0; pointer-events:none;
-    /* noise SVG più fitto + leggera grana */
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay;
-  }
-  
-  /* versione statica per reduced-motion */
   @media (prefers-reduced-motion: reduce){
     .bg-interactive{
       background:
@@ -205,51 +179,31 @@ body {
     }
   }
 
-  /* Cornice sottile bianca */
+  /* Cornice bianca */
 .bg-interactive::before {
     content: "";
     position: absolute;
-    inset: 20px; /* distanza dal bordo, puoi ridurre/aumentare */
-    border: 3px solid rgba(255, 255, 255, 0.738); /* sottile, bianca semi-trasparente */
-    border-radius: 24px; /* angoli arrotondati */
-    pointer-events: none; /* non blocca i click */
+    inset: 20px; 
+    border: 3px solid rgba(255, 255, 255, 0.738); 
+    border-radius: 20px; 
+    pointer-events: none; 
     z-index: 1;
   }
-/* === TEXTURE: sopra al background, sotto ai contenuti === */
-.bg-tex{
-  position: fixed;
-  inset: 0;
-  z-index: 0;                 /* tra background e .site */
-  pointer-events: none;
-  background-image: url("assets/img/texture.png");  /* verifica il percorso */
-  background-size: cover;     /* prova anche: 600px 600px + repeat */
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: .18;               /* aumenta per test, poi scendi a .10–.12 */
-  transform: translate(var(--tex-x,0px), var(--tex-y,0px));
-  transition: transform 1s ease;
-}
 
-  /* Social icons */
+  /* icone per i social */
   footer .social {
     display: flex;
-    gap: 1rem; /* spazio costante fra i cerchi */
+    gap: 1rem; 
     margin-top: 2rem;
   }
   
   .bouncing-text {
     position: relative;
     display: inline-block;
-    font-size: 1.5rem;       /* dimensione testo */
+    font-size: 1.5rem;     
     font-weight: 600;
-    white-space: nowrap;     /* il testo non va a capo */
+    white-space: nowrap;    
     animation: bounceX 16s ease-in-out infinite alternate;
-  }
-  
-  /* Animazione avanti e indietro */
-  @keyframes bounceX {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(calc(100vw - 100%)); }
   }
   
   .bouncing-text {
@@ -273,9 +227,8 @@ body {
   height: 220px;
 }
 
-/* =========================
-   ABOUT PAGE (scoped)
-   ========================= */
+/*  ABOUT ME PAGE */
+
   /* Cornice bianca */
   .page-about::before{
     content:"";
@@ -285,8 +238,8 @@ body {
     pointer-events: none;
     z-index: 2;
   }
-  
-  /* Divider centrale */
+
+  /* Linea centrale per dividere gli elementi */
   .page-about .about-divider{
     width: 2px;
     background: #fff;
@@ -301,10 +254,10 @@ body {
   .page-about .accent{ color:#fff; }
   .page-about .section-label{ text-transform: uppercase; letter-spacing:.08em; opacity:.9; }
   
-  /* ---- POLAROID ---- */
+  /* POLAROID con la mia foto */
   .page-about .polaroid{
     background:#fff;
-    padding: 12px 12px 40px;         /* bordo in basso più alto */
+    padding: 12px 12px 40px;        
     border-radius: 8px;
     box-shadow: 0 8px 28px rgba(0,0,0,.35);
     text-align:center;
@@ -329,38 +282,26 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,.3);
   }
   
-  /* Social (icone nei cerchi bianchi) */
-  .page-about .about-socials a{
-    width: 55px; height: 55px;
-    background:#fff; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow: 0 2px 6px rgba(0,0,0,.25);
-    transition: transform .2s ease;
-  }
-  .page-about .about-socials a:hover{ transform: scale(1.1); }
-  .page-about .about-socials img{ width:24px; height:24px; }
-  
-  /* Responsive raffinatino */
   @media (max-width: 992px){
     .page-about .about-title{ font-size: 1.6rem; }
     .page-about .polaroid__img{ width: clamp(220px, 60vw, 360px); }
   }
 
-/* About */
+/* background pagina About me */
 .page-about {
   --deep: #6599ee;
   --mid:  #d0cbcb;
-  --tintA: 120 100% 60%; /* azzurro */
-  --tintB: 120 100% 62%; /* blu */
+  --tintA: 120 100% 60%; 
+  --tintB: 120 100% 62%; 
 }
 
-.logopiccolo img {
+.logopiccolo menu img {
   height: 50px;         
   margin-top: 40px;  
   margin-left: 120px;
 }
 
-/* Sticker About */
+/* Sticker pagina di About me */
 .sticker-about {
   position: absolute;
   top: 0; left: 0;
@@ -375,7 +316,6 @@ body {
   opacity: 0.7;
 }
 
-/* Sticker About: il contenitore comanda la dimensione */
 .sticker-about{
   position:absolute;
   top:0; left:0;
@@ -384,21 +324,18 @@ body {
   touch-action:none;
 }
 
-/* Sticker About - responsive */
 .sticker-about img {
-  max-width: 160px;   /* dimensione massima su desktop */
-  width: 100%;        /* scala con il contenitore */
-  height: auto;       /* mantiene le proporzioni */
+  max-width: 160px;   
+  width: 100%;       
+  height: auto;       
 }
 
-/* Su tablet riduciamo leggermente */
 @media (max-width: 992px) {
   .sticker-about img {
     max-width: 120px;
   }
 }
 
-/* Su mobile riduciamo ancora */
 @media (max-width: 576px) {
   .sticker-about img {
     max-width: 90px;
@@ -408,16 +345,16 @@ body {
 /* Motto About */
 .polaroid__caption {
   font-family: "League Script", cursive;
-  font-size: 5rem;         /* regola la grandezza */
-  color: #000;             /* nero */
-  text-align: center;      /* centrato */
-  margin-top: 2rem;        /* spazio sopra */
+  font-size: 5rem;       
+  color: #000;             
+  text-align: center;    
+  margin-top: 2rem;       
 }
 
 /* Colore base del testo */
 .about-text {
-  color: #fff; /* bianco */
-  font-family: 'Share Tech Mono', monospace; /* stesso font della Welcome */
+  color: #fff; 
+  font-family: 'Share Tech Mono', monospace; 
   font-size: 1.2rem;
   line-height: 1.8;
 }
@@ -431,13 +368,13 @@ body {
 }
 
 .about-title {
-  color: #fff !important;            /* Titolo bianco */
+  color: #fff !important;            
   font-family: 'Share Tech Mono', monospace;
   font-size: 2.5rem;
   font-weight: bold;
 }
 
-/* ===== Slider album ===== */
+/* Slider album spotify */
 .page-about .fav-albums { position: relative; }
 
 .page-about .album-wrap{
@@ -464,20 +401,22 @@ body {
 .page-about .album-card{
   position: relative;
   scroll-snap-align: start;
-  aspect-ratio: 1 / 1;             /* quadrata */
+  aspect-ratio: 1 / 1;           
   border-radius: 16px;
   overflow: hidden;
   background: #0d2130;
   box-shadow: 0 8px 28px rgba(0,0,0,.35);
-  transform-style: preserve-3d;    /* per tilt 3D */
+  transform-style: preserve-3d;    
   transition: transform .15s ease, box-shadow .2s ease;
   will-change: transform;
   text-decoration: none;
 }
+
 .page-about .album-card img{
   width: 100%; height: 100%; object-fit: cover; display: block;
-  transform: translateZ(20px); /* leggera profondità */
+  transform: translateZ(20px); 
 }
+
 .page-about .album-card::after{
   content:"";
   position:absolute; inset:0;
@@ -485,9 +424,11 @@ body {
   opacity:.0; transition: opacity .15s ease;
   mix-blend-mode: screen;
 }
+
 .page-about .album-card:hover{
   box-shadow: 0 14px 38px rgba(0,0,0,.45);
 }
+
 .page-about .album-card:hover::after{ opacity:.55; }
 
 .page-about .album-title{
@@ -497,7 +438,7 @@ body {
   color:#fff; font-size:.8rem; border-radius:999px;
 }
 
-/* Bottoni prev/next */
+/* per i bottoni */
 .page-about .album-nav{
   width: 36px; height: 36px;
   border-radius: 50%;
@@ -507,6 +448,7 @@ body {
   cursor:pointer;
   transition: transform .15s ease;
 }
+
 .page-about .album-nav:hover{ transform: scale(1.06); background:#f4f4f4; }
 .page-about .album-nav:active{ transform: scale(0.96); }
 
@@ -514,44 +456,23 @@ body {
   .page-about .album-scroller{ grid-auto-columns: clamp(120px, 45vw, 160px); }
 }
 
-/* Logo About */
-.about-logo img {
-  height: 60px;   /* 👈 altezza fissa */
-  width: auto;    /* mantiene proporzioni */
-  display: block;
-}
-
-/* Logo About */
-.about-logo img {
-  height: 60px;   /* 👈 altezza fissa */
-  width: auto;    /* mantiene proporzioni */
-  display: block;
-}
-
-/* --- TOP BAR centrata, con spazio sotto la cornice --- */
+/* menu centrato */
 .page-about .top-bar{
   display:flex;
-  flex-direction:column;          /* logo sopra, menu sotto */
+  flex-direction:column;         
   align-items:center;
   justify-content:center;
   gap: 14px;
-
-  /* niente margin-top che “sposta” la percezione della cornice */
-  margin-top: 0;
-
-  /* usiamo padding interno per abbassare il blocco rispetto alla cornice */
   padding-top: clamp(16px, 3vw, 36px);
   margin-bottom: clamp(20px, 4vw, 48px);
 }
 
-/* Logo davvero responsive (limiti più stretti) */
 .page-about .top-bar .about-logo img{
-  height: clamp(44px, 7vw, 88px);   /* min 44px, max 88px */
+  height: clamp(44px, 7vw, 88px);  
   width: auto;
   display:block;
 }
 
-/* Menu centrato + dimensioni che non “esplodono” */
 .page-about .top-bar .about-nav{
   display:flex;
   gap: clamp(10px, 2vw, 22px);
@@ -563,7 +484,7 @@ body {
   color:#fff;
   text-decoration:none;
   font-weight:700;
-  font-size: clamp(.90rem, 1.6vw, 1.10rem);  /* testo che scala poco */
+  font-size: clamp(.90rem, 1.6vw, 1.10rem);  
   line-height:1;
   padding: .25rem .1rem;
   transition: color .2s ease;
@@ -581,7 +502,6 @@ body {
   padding:.30rem .80rem;
 }
 
-/* Mobile: un filo più compatto */
 @media (max-width: 768px){
   .page-about .top-bar{ padding-top: 30px; gap: 10px; }
   .page-about .top-bar .about-nav{ gap: 12px; }
@@ -589,13 +509,13 @@ body {
 
 .page-about main { margin-top: clamp(8px, 2vw, 24px); }
 
-/* Footer About */
+/* Footer */
 .page-about footer {
   position: relative;
   bottom: 0;
   text-align: center;
   font-size: 0.9rem;
-  color: #fff;          /* 👈 testo bianco */
-  margin-bottom: 20px;  /* 👈 alzato sopra la cornice */
-  opacity: 1;           /* 👈 niente trasparenza */
+  color: #fff;          
+  margin-bottom: 20px;  
+  opacity: 1;          
 }

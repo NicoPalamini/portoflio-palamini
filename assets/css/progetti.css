@@ -6,44 +6,21 @@ body {
     padding: 0;
   }
   
-  /* Logo */
-  .logo {
-    max-width: 260px;  /* grandezza massima */
-    height: auto;      /* mantiene proporzioni */
-  }
-  
   /* base scura con leggere sfumature */
   .bg-interactive{
     position: relative;
     min-height: 100svh;
     color:#e188e8;
     background:
-      /* alone principale che segue il mouse (molto ampio e tenue) */
       radial-gradient(1000px 700px at var(--mx) var(--my), color-mix(in oklab, hsl(var(--tintB)) 70%, transparent), transparent 70%),
-  
-      /* velatura fredda molto grande (quasi impercettibile) */
       radial-gradient(1400px 900px at calc(var(--mx)*0.35) calc(var(--my)*1.2),
         color-mix(in oklab, hsl(var(--tintA)) 12%, transparent), transparent 75%),
-  
-      /* vignettatura dolce ai bordi */
       radial-gradient(140% 120% at 50% 60%, transparent 60%, rgba(0,0,0,.28) 100%),
-  
-      /* base */
       linear-gradient(160deg, var(--deep), var(--mid) 60%, var(--deep));
     background-blend-mode: screen, screen, multiply, normal;
     transition: background-position .1s ease;
   }
   
-  /* Noise (più presente) */
-  .bg-interactive::after{
-    content:"";
-    position:absolute; inset:0; pointer-events:none;
-    /* noise SVG più fitto + leggera grana */
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay;
-  }
-  
-  /* versione statica per reduced-motion */
   @media (prefers-reduced-motion: reduce){
     .bg-interactive{
       background:
@@ -58,25 +35,19 @@ body {
   .bg-interactive::before {
     content: "";
     position: absolute;
-    inset: 20px; /* distanza dal bordo, puoi ridurre/aumentare */
-    border: 3px solid rgba(255, 255, 255, 0.738); /* sottile, bianca semi-trasparente */
-    border-radius: 24px; /* angoli arrotondati */
-    pointer-events: none; /* non blocca i click */
+    inset: 20px; 
+    border: 3px solid rgba(255, 255, 255, 0.738); 
+    border-radius: 24px; 
+    pointer-events: none; 
     z-index: 1;
   }
   
-  /* Animazione avanti e indietro */
-  @keyframes bounceX {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(calc(100vw - 100%)); }
-  }
-  
-  /* About */
+  /* background uguale alla pagina about/home */
   .page-about {
     --deep: #538168;
     --mid:  #bebec6;
-    --tintA: 210 100% 55%; /* ciano */
-    --tintB: 270 85% 60%;  /* viola */
+    --tintA: 210 100% 55%; 
+    --tintB: 270 85% 60%;  
   }
   
   .logopiccolo img {
@@ -87,42 +58,28 @@ body {
   
   /* Logo About */
   .about-logo img {
-  height: 60px;   /* 👈 altezza fissa */
-  width: auto;    /* mantiene proporzioni */
+  height: 60px;   
+  width: auto;   
   display: block;
   }
   
-  /* Logo About */
-  .about-logo img {
-  height: 60px;   /* 👈 altezza fissa */
-  width: auto;    /* mantiene proporzioni */
-  display: block;
-  }
-  
-  /* --- TOP BAR centrata, con spazio sotto la cornice --- */
+  /* menu uguale alle altre pagine */
   .page-about .top-bar{
   display:flex;
-  flex-direction:column;          /* logo sopra, menu sotto */
+  flex-direction:column;         
   align-items:center;
   justify-content:center;
   gap: 14px;
-  
-  /* niente margin-top che “sposta” la percezione della cornice */
-  margin-top: 0;
-  
-  /* usiamo padding interno per abbassare il blocco rispetto alla cornice */
   padding-top: clamp(16px, 3vw, 36px);
   margin-bottom: clamp(20px, 4vw, 48px);
   }
-  
-  /* Logo davvero responsive (limiti più stretti) */
+
   .page-about .top-bar .about-logo img{
-  height: clamp(44px, 7vw, 88px);   /* min 44px, max 88px */
+  height: clamp(44px, 7vw, 88px);  
   width: auto;
   display:block;
   }
   
-  /* Menu centrato + dimensioni che non “esplodono” */
   .page-about .top-bar .about-nav{
   display:flex;
   gap: clamp(10px, 2vw, 22px);
@@ -134,7 +91,7 @@ body {
   color:#fff;
   text-decoration:none;
   font-weight:700;
-  font-size: clamp(.90rem, 1.6vw, 1.10rem);  /* testo che scala poco */
+  font-size: clamp(.90rem, 1.6vw, 1.10rem);  
   line-height:1;
   padding: .25rem .1rem;
   transition: color .2s ease;
@@ -152,7 +109,6 @@ body {
   padding:.30rem .80rem;
   }
   
-  /* Mobile: un filo più compatto */
   @media (max-width: 768px){
   .page-about .top-bar{ padding-top: 30px; gap: 10px; }
   .page-about .top-bar .about-nav{ gap: 12px; }
@@ -160,15 +116,15 @@ body {
   
   .page-about main { margin-top: clamp(8px, 2vw, 24px); }
   
-  /* Footer About */
+  /* Footer uguale ad About ecc... */
   .page-about footer {
   position: relative;
   bottom: 0;
   text-align: center;
   font-size: 0.9rem;
-  color: #fff;          /* 👈 testo bianco */
-  margin-bottom: 20px;  /* 👈 alzato sopra la cornice */
-  opacity: 1;           /* 👈 niente trasparenza */
+  color: #fff;          
+  margin-bottom: 20px;  
+  opacity: 1;           
   }
 
   .projects .project-title {
@@ -179,25 +135,24 @@ body {
   font-size: clamp(1.4rem, 2vw, 1.8rem);
 }
 
-/* Box immagine con rapporto fisso: l'immagine si adatta sempre */
+/* Box immagine dei progetti */
 .projects .project-box {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;          /* 👈 controlla l'altezza della card */
+  aspect-ratio: 16 / 10;          
   overflow: hidden;
   border-radius: 14px;
   box-shadow: 0 8px 24px rgba(0,0,0,.3);
   margin-bottom: 12px;
 }
 
-/* L'immagine riempie il box, senza distorcersi */
 .projects .project-box img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;              /* 👈 taglia in eccesso ma copre tutto */
+  object-fit: cover;            
   transition: transform .3s ease;
 }
 
@@ -212,56 +167,49 @@ body {
   margin: 0 auto;
 }
 
-/* Spazio verticale extra tra le righe (se preferisci invece di gy-5) */
 .projects .row {
   row-gap: clamp(24px, 5vw, 56px); /* 👈 aumenta gap verticale tra le due righe */
 }
 
-/* Mobile: box un po’ più alto e quindi immagine più “piccola visivamente” */
 @media (max-width: 768px) {
   .projects .project-box {
-    aspect-ratio: 4 / 3;          /* 👈 leggermente più “quadrata” su mobile */
+    aspect-ratio: 4 / 3;         
   }
 }
 
-/* ====== "Find inspiration" ====== */
+/* frase con foto dietro ad essa */
 .inspo-mosaic{
   position: relative;
-  /* margini interni per non toccare la cornice bianca */
   padding: clamp(28px, 6vw, 72px) 0;
   min-height: clamp(420px, 70vh, 880px);
-  /* crea un contesto di z-index che non tocca il tuo sfondo */
   isolation: isolate;
 }
 
-/* ---- testo centrale ---- */
 .inspo-title{
   position: relative;
-  z-index: 2;                 /* sopra le foto */
+  z-index: 2;                
   margin: 0 auto;
   width: min(1100px, 92%);
   color: #fff;
-  font-family: 'Share Tech Mono', monospace; /* come nella home */
+  font-family: 'Share Tech Mono', monospace; 
   font-weight: 800;
   letter-spacing: .01em;
-  line-height: .88;           /* interlinea stretta */
+  line-height: .88;          
   text-transform: uppercase;
-  /* dimensione fluida */
   font-size: clamp(1.6rem, 7.8vw, 6.2rem);
 }
+
 .inspo-title span{
   display:block;
 }
 
-/* ---- foto dietro al testo ---- */
 .inspo-tiles{
   position: absolute;
-  inset: 0;                   /* occupa tutto il riquadro della sezione */
-  z-index: 1;                 /* dietro al testo, sopra allo sfondo */
-  pointer-events: none;       /* non blocca i click/hover del resto */
+  inset: 0;                   
+  z-index: 1;            
+  pointer-events: none;     
 }
 
-/* stile generale delle tile */
 .inspo-tiles .tile{
   position: absolute;
   width: clamp(84px, 12vw, 160px);
@@ -273,24 +221,19 @@ body {
   opacity: .94;
 }
 
-/* ---- posizionamento "random" (percentuali dentro al container) ---- */
-/* alto-sx */
+/* posizionamento delle foto dietro */
 .inspo-tiles .t1{ left: 4%;   top: 6%;   transform: rotate(-6deg); }
 .inspo-tiles .t2{ left: 26%;  top: 10%;  transform: rotate( 3deg); }
-/* alto-dx */
 .inspo-tiles .t3{ right: 27%; top: 8%;   transform: rotate(-2deg); }
 .inspo-tiles .t4{ right: 6%;  top: 14%;  transform: rotate( 6deg); }
-/* centro/sotto */
 .inspo-tiles .t5{ left: 10%;  bottom: 18%; transform: rotate( 4deg); }
 .inspo-tiles .t6{ left: 42%;  bottom: 14%; transform: rotate(-5deg); }
 .inspo-tiles .t7{ right: 38%; bottom: 22%; transform: rotate( 2deg); }
 .inspo-tiles .t8{ right: 8%;  bottom: 10%; transform: rotate(-7deg); }
 
-/* ---- responsive: ridistribuisco e rimpicciolisco ---- */
 @media (max-width: 992px){
   .inspo-tiles .tile{ width: clamp(72px, 16vw, 130px); }
   .inspo-title{ line-height: .9; font-size: clamp(1.4rem, 8.6vw, 4.4rem); }
-
   .inspo-tiles .t1{ left: 6%;  top: 4%; }
   .inspo-tiles .t2{ left: 58%; top: 6%; }
   .inspo-tiles .t3{ left: 12%; top: 30%; }
@@ -304,8 +247,6 @@ body {
 @media (max-width: 560px){
   .inspo-tiles .tile{ width: clamp(64px, 18vw, 108px); }
   .inspo-title{ font-size: clamp(1.2rem, 9.6vw, 3.6rem); line-height: .92; }
-
-  /* comprimo per evitare la cornice */
   .inspo-tiles .t1{ left: 6%;  top: 6%; }
   .inspo-tiles .t2{ left: 60%; top: 8%; }
   .inspo-tiles .t3{ left: 10%; top: 38%; }
