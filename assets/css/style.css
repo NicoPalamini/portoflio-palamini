@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #0b0b0f;
+    background-color: #afc0bd62;
     color: #e9e7ff;
     margin: 0;
     padding: 0;
@@ -10,9 +10,46 @@ body {
 
   /* Logo home */
   .logo {
-    max-width: 260px;  
-    height: auto;     
+    max-width: 350px;  
+    height: auto;   
+    transition: transform 0.4s ease, filter 0.4s ease;
+    cursor: pointer;  
   }
+
+.logo:hover {
+  transform: scale(1.15);  /* ingrandisce del 15% */
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.25)); /* aggiunge profondità */
+}
+
+  /* TESTO CHE VA AVANTI/INDIETRO IN ALTO */
+.bouncing-wrap{
+  position: relative;
+  z-index: 3;           /* sopra lo sfondo, sotto la cornice */
+  width: 100%;
+  pointer-events: none; /* non cattura click */
+  /* il JS muoverà questo wrapper (parallax leggero) */
+  transform: translate(0,0);
+  will-change: transform;
+}
+
+.bouncing-text{
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 7vw, 6rem);
+  letter-spacing: .03em;
+  color: #fff;
+  white-space: nowrap;
+  display: inline-block;
+  /* posizionamento “a tutta riga” in alto */
+  margin: clamp(16px, 6vw, 80px) auto 0;
+  /* ANIMAZIONE orizzontale */
+  animation: bounceX 16s ease-in-out infinite alternate;
+}
+
+@keyframes bounceX{
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(100vw - 100%)); }
+}
   
   /* Menu grid */
   .menu-grid {
@@ -195,15 +232,6 @@ body {
     display: flex;
     gap: 1rem; 
     margin-top: 2rem;
-  }
-  
-  .bouncing-text {
-    position: relative;
-    display: inline-block;
-    font-size: 1.5rem;     
-    font-weight: 600;
-    white-space: nowrap;    
-    animation: bounceX 16s ease-in-out infinite alternate;
   }
   
   .bouncing-text {

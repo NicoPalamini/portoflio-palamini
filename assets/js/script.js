@@ -286,3 +286,15 @@ document.querySelectorAll(".menu-card").forEach(card => {
 
   console.log('Album slider About attivo');
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const text = document.querySelector('.bouncing-text');
+  if(!text) return;
+  const strength = 14;
+  const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+  window.addEventListener('mousemove', (e) => {
+    const x = (window.innerWidth  / 2 - e.clientX) / strength;
+    const y = (window.innerHeight / 2 - e.clientY) / (strength * 1.6);
+    text.style.transform = `translate(${clamp(x,-40,40)}px, ${clamp(y,-20,20)}px)`;
+  }, {passive:true});
+});
