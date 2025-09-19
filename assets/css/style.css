@@ -17,17 +17,16 @@ body {
   }
 
 .logo:hover {
-  transform: scale(1.15);  /* ingrandisce del 15% */
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.25)); /* aggiunge profondità */
+  transform: scale(1.15); 
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.25)); 
 }
 
   /* TESTO CHE VA AVANTI/INDIETRO IN ALTO */
 .bouncing-wrap{
   position: relative;
-  z-index: 3;           /* sopra lo sfondo, sotto la cornice */
+  z-index: 3;          
   width: 100%;
-  pointer-events: none; /* non cattura click */
-  /* il JS muoverà questo wrapper (parallax leggero) */
+  pointer-events: none; 
   transform: translate(0,0);
   will-change: transform;
 }
@@ -128,6 +127,7 @@ body {
   .menu-card:hover::after{
     opacity: 1;           
   }
+
   /* social */
   .socials {
     display: flex;
@@ -226,13 +226,6 @@ body {
     pointer-events: none; 
     z-index: 1;
   }
-
-  /* icone per i social */
-  footer .social {
-    display: flex;
-    gap: 1rem; 
-    margin-top: 2rem;
-  }
   
   .bouncing-text {
     font-family: 'Share Tech Mono', monospace;
@@ -242,12 +235,6 @@ body {
     font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: 0.05em;
-  }
-
-  footer {
-    text-align: center;
-    font-size: 0.9rem;
-    opacity: 0.8;
   }
 
   .sticker--large {
@@ -546,4 +533,9 @@ body {
   color: #fff;          
   margin-bottom: 20px;  
   opacity: 1;          
+}
+
+.page-home footer {
+  margin-bottom: 20px; 
+  font-size: 0.9rem;
 }
