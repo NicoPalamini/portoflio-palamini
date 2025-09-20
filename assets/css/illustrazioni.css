@@ -380,6 +380,7 @@ body {
 }
 
 .weird-lines > span{
+  font-family: 'Share Tech Mono', monospace;
   color: #fff;
   text-transform: uppercase;
   font-weight: 900;

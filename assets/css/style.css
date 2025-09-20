@@ -20,35 +20,6 @@ body {
   transform: scale(1.15); 
   filter: drop-shadow(0 8px 16px rgba(0,0,0,0.25)); 
 }
-
-  /* TESTO CHE VA AVANTI/INDIETRO IN ALTO */
-.bouncing-wrap{
-  position: relative;
-  z-index: 3;          
-  width: 100%;
-  pointer-events: none; 
-  transform: translate(0,0);
-  will-change: transform;
-}
-
-.bouncing-text{
-  font-family: 'Share Tech Mono', monospace;
-  font-weight: 700;
-  font-size: clamp(1.8rem, 7vw, 6rem);
-  letter-spacing: .03em;
-  color: #fff;
-  white-space: nowrap;
-  display: inline-block;
-  /* posizionamento “a tutta riga” in alto */
-  margin: clamp(16px, 6vw, 80px) auto 0;
-  /* ANIMAZIONE orizzontale */
-  animation: bounceX 16s ease-in-out infinite alternate;
-}
-
-@keyframes bounceX{
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(calc(100vw - 100%)); }
-}
   
   /* Menu grid */
   .menu-grid {
@@ -68,10 +39,6 @@ body {
     border-radius: 16px;
     transition: transform .25s ease, 
   }
-
-@media (max-width: 100px){
-  .menu-grid{ grid-template-columns: 1fr; }
-}
 
 @media (max-width: 400px){
   .socials{ margin-top: .5rem; }
@@ -188,8 +155,8 @@ body {
     --my: 40%;
     --deep: #538168;
     --mid:  #bebec6;
-    --tintA: 210 100% 55%; /* ciano */
-    --tintB: 270 85% 60%;  /* viola */
+    --tintA: 210 100% 55%; 
+    --tintB: 270 85% 60%; 
   }
   
   .bg-interactive{
@@ -269,38 +236,39 @@ body {
   .page-about .accent{ color:#fff; }
   .page-about .section-label{ text-transform: uppercase; letter-spacing:.08em; opacity:.9; }
   
-  /* POLAROID con la mia foto */
-  .page-about .polaroid{
+/* POLAROID con la mia foto */
+.page-about .polaroid{
     background:#fff;
     padding: 12px 12px 40px;        
     border-radius: 8px;
     box-shadow: 0 8px 28px rgba(0,0,0,.35);
     text-align:center;
-  }
-  .page-about .polaroid__img{
-    display:block;
-    width: clamp(220px, 32vw, 360px);
-    height:auto;
-    border-radius: 4px;
-    object-fit: cover;
-  }
-  .page-about .polaroid__caption{
-    margin-top: 10px;
-    font-weight: 700;
-    font-size: clamp(1.05rem, 1.8vw, 1.4rem);
-  }
+}
+
+.page-about .polaroid__img{
+  display:block;
+  width: clamp(220px, 32vw, 360px);
+  height:auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
+.page-about .polaroid__caption{
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+}
   
-  /* Playlist */
-  .page-about .playlist img{
-    width: 100px; height: 100px;
-    border-radius: 8px; object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0,0,0,.3);
-  }
+/* Playlist */
+.page-about .playlist img{
+  width: 100px; height: 100px;
+  border-radius: 8px; object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+}
   
-  @media (max-width: 992px){
+@media (max-width: 992px){
     .page-about .about-title{ font-size: 1.6rem; }
     .page-about .polaroid__img{ width: clamp(220px, 60vw, 360px); }
-  }
+}
 
 /* background pagina About me */
 .page-about {
@@ -403,7 +371,7 @@ body {
 .page-about .album-scroller{
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: clamp(140px, 18vw, 200px); /* larghezza card */
+  grid-auto-columns: clamp(140px, 18vw, 200px); 
   gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -538,4 +506,70 @@ body {
 .page-home footer {
   margin-bottom: 20px; 
   font-size: 0.9rem;
+}
+
+@media (max-width: 468px){
+  .bouncing-text{ font-size: clamp(1.1rem, 70.2vw, 1.6rem); letter-spacing: .02em; }
+}
+
+:root{ --frameInset: 20px; } 
+
+.page-home .bouncing-wrap{
+  padding-inline: calc(var(--frameInset) + 4px); 
+  overflow: hidden;                            
+}
+
+.page-home .bouncing-text{
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 400;
+  font-size: clamp(1.8rem, 7vw, rem);
+  letter-spacing: .03em;
+  color: #fff;
+  white-space: nowrap;
+  display: inline-block;
+  animation: bounceX-desktop 16s ease-in-out infinite alternate;
+}
+
+@keyframes bounceX-desktop{
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(100vw - 2*var(--frameInset) - 90%)); }
+}
+
+
+@media (max-width: 768px){
+  .page-home .bouncing-text{
+    font-size: clamp(1.1rem, 7vw, 1.6rem);
+    letter-spacing: .02em;
+    animation: bounceX-mobile 12s ease-in-out infinite alternate;
+  }
+  @keyframes bounceX-mobile{
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(calc(100vw - 2*var(--frameInset) - 100%)); }
+  }
+
+  .page-home main.container{
+    padding-inline: var(--frameInset);
+  }
+
+  .page-home .menu-grid{
+    grid-template-columns: 1fr;            
+    gap: 18px;
+    max-width: none;
+    width: calc(100% - 2*var(--frameInset));  
+    margin-inline: auto;                      
+  }
+
+  .page-home .menu-card{
+    min-height: clamp(120px, 36vw, 180px);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1100px){
+  .page-home main.container{
+    padding-inline: calc(var(--frameInset) + 6px);
+  }
+  .page-home .menu-grid{
+    width: min(720px, calc(100% - 2*var(--frameInset)));
+    margin-inline: auto;
+  }
 }
