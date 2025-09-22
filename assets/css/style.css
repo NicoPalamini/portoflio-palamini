@@ -204,6 +204,15 @@ body {
     letter-spacing: 0.05em;
   }
 
+  @media (max-width: 768px) {
+    .bouncing-text {
+      margin-top: 5%;
+      margin-left: 10%;
+      position: fixed;
+  }
+}
+@keyframes
+
   .sticker--large {
   width: 220px;
   height: 220px;
@@ -542,10 +551,10 @@ body {
     letter-spacing: .02em;
     animation: bounceX-mobile 12s ease-in-out infinite alternate;
   }
-  @keyframes bounceX-mobile{
+  /* @keyframes bounceX-mobile{
     0%   { transform: translateX(0); }
-    100% { transform: translateX(calc(100vw - 2*var(--frameInset) - 100%)); }
-  }
+    100% { transform: translateX(calc(100vw - 2*var(--frameInset) - 20%)); }
+  } */
 
   .page-home main.container{
     padding-inline: var(--frameInset);
