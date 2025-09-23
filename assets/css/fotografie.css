@@ -486,3 +486,9 @@ img{ max-width:100%; display:block; }
     margin: 16px auto;
   }
 }
+
+   /* scorreva orizzontalmente */
+html, body {
+  overflow-x: clip;   
+}
+
