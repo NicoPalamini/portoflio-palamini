@@ -167,8 +167,9 @@ body {
   margin: 0 auto;
 }
 
+/*  aumenta gap verticale tra le due righe */
 .projects .row {
-  row-gap: clamp(24px, 5vw, 56px); /* 👈 aumenta gap verticale tra le due righe */
+  row-gap: clamp(24px, 5vw, 56px); 
 }
 
 @media (max-width: 768px) {
